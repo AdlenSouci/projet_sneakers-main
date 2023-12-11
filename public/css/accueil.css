@@ -1,0 +1,23 @@
+.bg-custom {
+    background-color: #F8EEB7;
+    /* Couleur de fond de la barre de navigation */
+}
+
+.navbar-brand {
+    color: purple;
+    /* Couleur du texte dans la barre de navigation */
+}
+
+.card-3d {
+    /* Adjust the margin values according to your preferences */
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    background-color: antiquewhite;
+    
+}
+
+
+.card-3d:hover {
+    transform: perspective(1000px) rotateY(10deg);
+}
+

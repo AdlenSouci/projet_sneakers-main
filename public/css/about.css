@@ -1,0 +1,13 @@
+/* Ajoutez ce style dans votre fichier CSS */
+.navbar.custom-navbar {
+    background-color: #F8EEB7;
+    /* Couleur de fond de la barre de navigation */
+    border-color: #000000;
+    /* Couleur de la bordure de la barre de navigation, si vous le souhaitez */
+    color: white;
+    /* Couleur du texte dans la barre de navigation */
+}
+
+.custom-navbar .navbar-nav li.active a {
+    color: purple;
+}
