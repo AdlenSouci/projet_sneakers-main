@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([FamillesSeeder::class]);
         $this->call([PaysSeeder::class]);
         $this->call([ArticlesSeeder::class]);
-        $this->call([TvasSeedersSeeder::class]);
+        $this->call([TvasSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
