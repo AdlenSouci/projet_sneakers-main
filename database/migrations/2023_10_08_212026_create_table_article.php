@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('couleur', 60)->nullable(false);
             $table->decimal('prix_public', 9, 2)->nullable(false);
             $table->decimal('prix_achat', 9, 2)->nullable(false);           
+            $table->string('img')->nullable(false);
 
             $table->timestamps();
             $table->index('marque');
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->index('couleur');
             $table->index('prix_public');
             $table->index('id_famille');
+            $table->index('img');
             
             
             

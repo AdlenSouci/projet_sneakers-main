@@ -69,26 +69,27 @@
         </div>
     </div>
 
+    <div class="logo" style="position: absolute; top: 0; right: 0;">
+        <img class="logo" src="{{ asset('img/logo.png') }}" alt="Logo" width="200" height="200">
+    </div>
+
+
+  
+
 
     <div class="container custom-container">
         <input type="radio" name="slider" id="item-1" checked>
         <input type="radio" name="slider" id="item-2">
         <input type="radio" name="slider" id="item-3">
         <div class="cards">
-            <label class="card-cust" for="item-1" id="song-1">
-                <img  class =" custom-img"src="{{ asset('img/1.jpg') }}" alt="song">
+            <label class="card-cust" for="item-1" id="img-1">
+                <img class=" custom-img" src="{{ asset('img/1.jpg') }}" alt="sneaker">
             </label>
-            <label class="card-cust" for="item-2" id="song-2">
-                <img class =" custom-img" src="{{ asset('img/2.jpg') }}" alt="song">
+            <label class="card-cust" for="item-2" id="img-2">
+                <img class=" custom-img" src="{{ asset('img/2.jpg') }}" alt="sneaker">
             </label>
-            <label class="card-cust" for="item-3" id="song-3">
-                <img class =" custom-img" src="{{ asset('img/3.jpg') }}" alt="song">
-            </label>
-            <label class="card-cust" for="item-3" id="song-3">
-                <img class =" custom-img" src="{{ asset('img/4.jpg') }}" alt="song">
-            </label>
-            <label class="card-cust" for="item-3" id="song-3">
-                <img class =" custom-img" src="{{ asset('img/5.jpg') }}" alt="song">
+            <label class="card-cust" for="item-3" id="img-3">
+                <img class=" custom-img" src="{{ asset('img/3.jpg') }}" alt="sneaker">
             </label>
         </div>
 
