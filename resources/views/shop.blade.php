@@ -1,47 +1,3 @@
-<?php
-
-function connectToDatabase()
-{
-    // Connexion à la base de données
-    $conn = new mysqli("localhost", "root", "", "projet_sneakers");
-
-    // Vérification de la connexion
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    return $conn;
-}
-
-// Fonction pour récupérer les données des articles depuis la base de données
-function getArticlesData($conn)
-{
-    $sql = "SELECT * FROM articles";
-    $result = $conn->query($sql);
-
-    // Vérification des erreurs de requête
-    if (!$result) {
-        die("Query failed: " . $conn->error);
-    }
-
-    // Récupération des données sous forme de tableau associatif
-    $articlesData = $result->fetch_all(MYSQLI_ASSOC);
-
-    // Fermeture de la requête
-    $result->close();
-
-    return $articlesData;
-}
-
-// Connexion à la base de données
-$databaseConnection = connectToDatabase();
-
-// Récupération des données des articles depuis la base de données
-$articlesData = getArticlesData($databaseConnection);
-
-
-?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -102,11 +58,24 @@ $articlesData = getArticlesData($databaseConnection);
                             <!-- Product actions -->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
-                                <p><?= $article['description'] ?></p>
-                                    <a class="btn btn-outline-dark mt-auto" href="#">View options</a>
+                                    <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
+                                    <a class="btn btn-outline-dark mt-auto" href="#" id="toggleDescription">View options</a>
+
+                                    <!-- Utilisez la classe collapse pour masquer la section par défaut -->
+                                    <div id="descriptionCollapse" class="collapse">
+                                        <section id="description"><?= $article['description'] ?></section>
+                                    </div>
+
+                                    <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
+                                   
+                                    <a class="btn btn-outline-dark mt-auto" href="/basket" id="toggleDescription">Add to basket</a>
                                 </div>
                             </div>
+
+
+
+
+
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -119,7 +88,7 @@ $articlesData = getArticlesData($databaseConnection);
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+            <p class="m-0 text-center text-white">Copyright &copy; My sneakers 2023</p>
         </div>
     </footer>
     <!-- Bootstrap core JS-->
@@ -131,7 +100,20 @@ $articlesData = getArticlesData($databaseConnection);
 
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Ajoutez Bootstrap JS avant ce script -->
+    <script>
+        document.getElementById('toggleDescription').addEventListener('click', function() {
+            // Sélectionnez la section de description
+            var descriptionSection = document.getElementById('descriptionCollapse');
 
+            // Inversez la visibilité de la section
+            if (descriptionSection.classList.contains('show')) {
+                descriptionSection.classList.remove('show');
+            } else {
+                descriptionSection.classList.add('show');
+            }
+        });
+    </script>
 
 </body>
 

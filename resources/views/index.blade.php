@@ -27,6 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/basket">basket</a></li>
                     <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
                     <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                 </ul>
