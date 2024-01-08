@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,9 +28,10 @@
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/basket">basket</a></li>
                 </ul>
-                <form class="d-flex ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex ms-auto" action="{{ route('search') }}" method="GET">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-dark" type="submit">Submit</button>
                 </form>
             </div>
@@ -59,23 +59,19 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
-                                    <a class="btn btn-outline-dark mt-auto" href="#" id="toggleDescription">View options</a>
+                                    <a class="btn btn-outline-dark mt-auto toggleDescription" href="#">View options</a>
 
                                     <!-- Utilisez la classe collapse pour masquer la section par défaut -->
-                                    <div id="descriptionCollapse" class="collapse">
-                                        <section id="description"><?= $article['description'] ?></section>
+                                    <div class="collapse descriptionCollapse">
+                                        <section class="description"><?= $article['description'] ?></section>
                                     </div>
-
+                                    <br>
                                     <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
-                                   
-                                    <a class="btn btn-outline-dark mt-auto" href="/basket" id="toggleDescription">Add to basket</a>
+                                    <button class="btn btn-outline-dark mt-auto addToBasket" data-article-id="{{ $article['id'] }}">Add to basket</button>
+
+
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -84,33 +80,61 @@
         </div>
     </section>
 
-
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; My sneakers 2023</p>
         </div>
     </footer>
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 
-
-
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <!-- Ajoutez Bootstrap JS avant ce script -->
     <script>
-        document.getElementById('toggleDescription').addEventListener('click', function() {
-            // Sélectionnez la section de description
-            var descriptionSection = document.getElementById('descriptionCollapse');
+        // Utilisez un événement de délégation pour gérer tous les boutons avec la classe toggleDescription
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('toggleDescription')) {
+                // Sélectionnez la section de description
+                var descriptionSection = event.target.nextElementSibling;
 
-            // Inversez la visibilité de la section
-            if (descriptionSection.classList.contains('show')) {
-                descriptionSection.classList.remove('show');
-            } else {
-                descriptionSection.classList.add('show');
+                // Inversez la visibilité de la section
+                if (descriptionSection.classList.contains('show')) {
+                    descriptionSection.classList.remove('show');
+                } else {
+                    descriptionSection.classList.add('show');
+                }
+            }
+        });
+    </script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <script>
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('addToBasket')) {
+                // Récupérez l'ID de l'article à partir de l'attribut data-article-id
+                var articleId = event.target.getAttribute('data-article-id');
+
+                // Faites une requête Ajax pour ajouter l'article au panier
+                $.ajax({
+                    url: '{{ route("addToBasket") }}',
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'article_id': articleId
+                    },
+                    success: function(response) {
+                        alert(response.message); // Vous pouvez personnaliser cela en fonction de vos besoins
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             }
         });
     </script>

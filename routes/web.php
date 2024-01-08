@@ -1,10 +1,16 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\WelcomeController; 
 use App\Http\Controllers\produitController; 
-use App\Http\Controllers\ShopController; 
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\contactController;
+use App\Http\Controllers\registerController;
+
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\basketController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,36 +25,30 @@ use App\Http\Controllers\ShopController;
 Route::get('/', [WelcomeController::class, 'index']);
 
 Route::resource("shop", ShopController::class); 
-//Route::get("produits/", [produitController::class, "index"])->name("produits.index"); 
 
 
 
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::get('/basket', function () {
-    return view('basket');
-});
 
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/search', [ShopController::class, 'search'])->name('search');
 
-Route::get('/register', function () {
-    return view('register');
-});
+
+Route::resource("contact", contactController::class);
 
 
 
+Route::resource("register", registerController::class);
 
-Route::resource("produits", produitController::class); 
+Route::resource("about", AboutController::class);
+Route::resource("basket", BasketController::class);
+
+Route::post('/add-to-basket', [BasketController::class, 'addToBasket'])->name('addToBasket');
+
+Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('clearBasket');
+Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');
+Route::get('/get-total-price', 'BasketController@getTotalPrice');
+
 Route::get("produits/", [produitController::class, "index"])->name("produits.index"); 
 
 Route::get('/dashboard', function () {
