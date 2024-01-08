@@ -146,19 +146,6 @@
 
 
     <script>
-        function updateTotalPrice() {
-            // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
-            var itemPrices = document.querySelectorAll('.item-price');
-            var totalPrice = 0;
-
-            itemPrices.forEach(function(itemPrice) {
-                totalPrice += parseFloat(itemPrice.getAttribute('data-item-price'));
-            });
-
-            // Mettez à jour l'élément affichant le prix total
-            document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
-        }
-
         function updateItemQuantity(input) {
             // Obtenez les valeurs nécessaires
             var newQuantity = parseInt(input.value);
@@ -179,13 +166,27 @@
 
                     // Mettez à jour l'attribut data-item-price avec le prix unitaire
                     input.setAttribute("data-item-price", pricePerItem.toFixed(2));
+
+                    // Mettez à jour le prix total
+                    updateTotalPrice();
                 }
             } else {
                 // Remettez la quantité à 0 si la nouvelle quantité n'est pas valide
-
                 input.value = 0;
             }
-            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
+            var itemPrices = document.querySelectorAll('.item-price');
+            var totalPrice = 0;
+
+            itemPrices.forEach(function(itemPrice) {
+                totalPrice += parseFloat(itemPrice.textContent.replace('€ ', ''));
+            });
+
+            // Mettez à jour l'élément affichant le prix total
+            document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
         }
     </script>
 
