@@ -16,10 +16,13 @@
 
 <body>
 
+    @include('components.navbar')
 
 
 
-    <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+
+
+    <section class="h-100 h-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12">
@@ -40,7 +43,7 @@
                                                 <img src="{{ $item['image'] }}" class="img-fluid rounded-3" alt="{{ $item['name'] }}">
                                             </div>
                                             <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-muted">Shirt</h6>
+                                                <h6 class="text-muted">article</h6>
                                                 <h6 class="text-black mb-0">{{ $item['name'] }}</h6>
                                             </div>
                                             <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="updateItemQuantity(this)" />
@@ -48,6 +51,8 @@
 
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0 item-price" data-item-price="{{ $item['price'] }}">€ {{ $item['price'] * $item['quantity'] }}</h6>
+                                                <button class="btn btn-danger" onclick="clearBasketArticle(this)" data-article-id="{{ $item['id'] }}">Supprimer</button>
+
 
                                             </div>
 
@@ -101,7 +106,9 @@
                                                 <h5 id="totalPrice">€ {{ $totalPrice }} </h5>
                                             </div>
 
-                                            <button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Register</button>
+                                            <!-- Ajoutez ceci à l'endroit où vous avez le bouton "Register" -->
+                                            <button class="btn btn-dark btn-block btn-lg" onclick="redirectToAuth()">Register</button>
+
 
                                         </div>
                                     </div>
@@ -119,6 +126,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
+
+
+    <script>
+        function redirectToAuth() {
+            // Stockez l'URL actuelle pour revenir après la connexion
+            var returnUrl = window.location.href;
+
+            // Utilisateur non connecté, redirigez vers la page d'authentification Breeze
+            window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent(returnUrl);
+        }
+
+
+        function showOrderConfirmationPopup(email) {
+            // Affichez un pop-up avec le message de commande confirmée et l'adresse e-mail
+            alert('Commande confirmée pour l\'utilisateur avec l\'adresse e-mail : ' + email);
+        }
+    </script>
 
 
     <script>
@@ -143,6 +167,39 @@
 
         }
     </script>
+
+
+    <script>
+        function clearBasketArticle(button) {
+            var articleId = button.getAttribute('data-article-id');
+
+            fetch('{{ route("clear-basket-article") }}', { // Utilisez la fonction route() pour générer l'URL de la route
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        article_id: articleId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+
+                    // Rechargez la page côté client si la suppression a réussi
+                    if (!data.error) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la suppression de l\'article :', error);
+                });
+        }
+    </script>
+
+
+
 
 
     <script>

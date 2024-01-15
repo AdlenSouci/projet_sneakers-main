@@ -10,6 +10,7 @@ use App\Http\Controllers\registerController;
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\basketController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,10 +47,9 @@ Route::resource("basket", BasketController::class);
 Route::post('/add-to-basket', [BasketController::class, 'addToBasket'])->name('addToBasket');
 
 Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('clearBasket');
+Route::post('/clear-basket-article', [BasketController::class, 'clearBasketArticle'])->name('clear-basket-article');
 Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');
 Route::get('/get-total-price', 'BasketController@getTotalPrice');
-
-Route::get("produits/", [produitController::class, "index"])->name("produits.index"); 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -62,7 +62,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-
-
-

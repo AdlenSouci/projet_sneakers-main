@@ -14,47 +14,9 @@
 </head>
 
 <body>
+@include('components.navbar')
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/basket">basket</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card card-3d">
-                    <div class="main-text">
-                        <h1>Welcome to My Sneakers</h1>
-                        <p class="lead">
-                            My Sneakers is the online sneaker store that offers a wide selection of models, brands, and prices. Whether you're a seasoned collector or a casual sneaker enthusiast, you'll find the shoes that suit you on our site.
-                        </p>
-                        <p class="lead">
-                            We offer a diverse range of sneakers, from classic models to exclusive ones. You'll find sneakers from all major brands, such as Nike, Adidas, Jordan, Converse, Puma, etc. You can also explore sneakers in different categories, including running, basketball, tennis, and more.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
--->
+    
     <div class="container mt-5">
         <!-- Aligner à gauche -->
         <div class="card card-3d" style="max-width: 600px; max-height: 400px">

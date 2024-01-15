@@ -17,26 +17,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/basket">basket</a></li>
-                </ul>
-                <form class="d-flex ms-auto" action="{{ route('search') }}" method="GET">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-dark" type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+@include('components.navbar')
 
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">

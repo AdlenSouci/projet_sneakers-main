@@ -78,8 +78,6 @@ class ArticlesSeeder extends Seeder
             'img' => 'img/' . 'patta.webp', // Ajoutez le chemin relatif de votre image ici
         ]);
 
-      
-
         DB::table('articles')->insert([
             'marque'  => 'new balance',
             'nom_famille' => 'basket',
@@ -92,9 +90,6 @@ class ArticlesSeeder extends Seeder
             'prix_achat' => 65.00,  // Mettez le prix réel
             'img' => 'img/' . '574.webp', // Ajoutez le chemin relatif de votre image ici
         ]);
-
-
-
 
         DB::table('articles')->insert([
             'marque'  => 'Nike',
