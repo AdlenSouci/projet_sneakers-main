@@ -11,6 +11,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\basketController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CarouselController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,29 +24,17 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index']);
-
-Route::resource("shop", ShopController::class); 
+Route::get('/', [WelcomeController::class, 'index'])->name('index');
 
 
 
-
-
-
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/contact', [contactController::class, 'index'])->name('contact');
+Route::get('/basket', [basketController::class, 'index'])->name('basket');
+Route::get('/carousel', [CarouselController::class, 'index'])->name('carousel');
 Route::get('/search', [ShopController::class, 'search'])->name('search');
-
-
-Route::resource("contact", contactController::class);
-
-
-
-Route::resource("register", registerController::class);
-
-Route::resource("about", AboutController::class);
-Route::resource("basket", BasketController::class);
-
 Route::post('/add-to-basket', [BasketController::class, 'addToBasket'])->name('addToBasket');
-
 Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('clearBasket');
 Route::post('/clear-basket-article', [BasketController::class, 'clearBasketArticle'])->name('clear-basket-article');
 Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');

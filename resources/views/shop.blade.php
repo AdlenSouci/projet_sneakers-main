@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+    
+    @vite(['resources/css/accueil.css'])
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 
@@ -16,8 +18,7 @@
 </head>
 
 <body>
-
-@include('components.navbar')
+@include('layouts.navigation')
 
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -44,7 +45,7 @@
 
                                     <!-- Utilisez la classe collapse pour masquer la section par défaut -->
                                     <div class="collapse descriptionCollapse">
-                                        <section class="description"><?= $article['description'] ?></section>
+                                        <section class="description color : black"><?= $article['description'] ?></section>
                                     </div>
                                     <br>
                                     <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->

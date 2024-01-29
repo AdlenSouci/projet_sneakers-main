@@ -1,1 +1,1 @@
-<img class="logo" src="{{ asset('img/logo.png') }}" alt="Logo" width="200" height="200">
+<img class="logo" src="{{ asset('img/logo.png') }}" alt="Logo" width="50" height="50">

@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/basket.css') }}">
+    
+    @vite(['resources/css/basket.css'])
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -16,7 +17,7 @@
 
 <body>
 
-    @include('components.navbar')
+@include('layouts.navigation')
 
 
 
@@ -107,7 +108,7 @@
                                             </div>
 
                                             <!-- Ajoutez ceci à l'endroit où vous avez le bouton "Register" -->
-                                            <button class="btn btn-dark btn-block btn-lg" onclick="redirectToAuth()">Register</button>
+                                            <button class="btn btn-dark btn-block btn-lg" onclick="redirectToAuth() ">Register</button>
 
 
                                         </div>
@@ -132,16 +133,12 @@
         function redirectToAuth() {
             // Stockez l'URL actuelle pour revenir après la connexion
             var returnUrl = window.location.href;
-
+            alert("Votre commande a été enregistrée avec succès !");
             // Utilisateur non connecté, redirigez vers la page d'authentification Breeze
             window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent(returnUrl);
+            
         }
 
-
-        function showOrderConfirmationPopup(email) {
-            // Affichez un pop-up avec le message de commande confirmée et l'adresse e-mail
-            alert('Commande confirmée pour l\'utilisateur avec l\'adresse e-mail : ' + email);
-        }
     </script>
 
 
@@ -246,13 +243,6 @@
             document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
         }
     </script>
-
-    <!-- Ajoutez ceci à votre script JavaScript -->
-
-
-
-
-
 
 
 
