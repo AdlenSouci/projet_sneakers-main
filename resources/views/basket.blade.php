@@ -36,7 +36,8 @@
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                             <h6 class="mb-0 text-muted">{{ count($cartItems) }} items</h6>
                                         </div>
-                                        <hr class="my-4">
+                                        <hr class="my-4">    
+                                        
 
                                         @foreach ($cartItems as $item)
                                         <div class="row mb-4 d-flex justify-content-between align-items-center">
