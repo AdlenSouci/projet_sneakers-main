@@ -41,6 +41,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
+                                    <br>
                                     <a class="btn btn-outline-dark mt-auto toggleDescription" href="#">View options</a>
 
                                     <!-- Utilisez la classe collapse pour masquer la section par défaut -->
@@ -48,7 +49,7 @@
                                         <section class="description color : black"><?= $article['description'] ?></section>
                                     </div>
                                     <br>
-                                    <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
+                                    <br>                                    <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
                                     <button class="btn btn-outline-dark mt-auto addToBasket" data-article-id="{{ $article['id'] }}">Add to basket</button>
 
 

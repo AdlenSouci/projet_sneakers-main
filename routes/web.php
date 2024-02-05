@@ -39,6 +39,9 @@ Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('cl
 Route::post('/clear-basket-article', [BasketController::class, 'clearBasketArticle'])->name('clear-basket-article');
 Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');
 Route::get('/get-total-price', 'BasketController@getTotalPrice');
+//Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
+Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

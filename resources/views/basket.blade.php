@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+
     @vite(['resources/css/basket.css'])
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -17,7 +17,7 @@
 
 <body>
 
-@include('layouts.navigation')
+    @include('layouts.navigation')
 
 
 
@@ -36,8 +36,8 @@
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                             <h6 class="mb-0 text-muted">{{ count($cartItems) }} items</h6>
                                         </div>
-                                        <hr class="my-4">    
-                                        
+                                        <hr class="my-4">
+
 
                                         @foreach ($cartItems as $item)
                                         <div class="row mb-4 d-flex justify-content-between align-items-center">
@@ -67,7 +67,7 @@
 
                                         <div class="pt-5">
                                             <button class="btn btn-danger" onclick="clearBasket()">Vider le panier</button>
-                                            <h6 class="mb-0"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                            <h6 class="mb-0"><a href="/shop" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
 
                                         </div>
                                     </div>
@@ -108,8 +108,15 @@
                                                 <h5 id="totalPrice">€ {{ $totalPrice }} </h5>
                                             </div>
 
-                                            <!-- Ajoutez ceci à l'endroit où vous avez le bouton "Register" -->
-                                            <button class="btn btn-dark btn-block btn-lg" onclick="redirectToAuth() ">Register</button>
+                                            @if(auth()->check())
+                                            <form action="{{ route('passer-commande') }}" method="post">
+                                                @csrf
+                                                <button id="passCommandButton" type="submit" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                            </form>
+                                            @else
+                                            <p>Connectez-vous pour passer une commande.</p>
+                                            @endif
+
 
 
                                         </div>
@@ -130,17 +137,7 @@
 
 
 
-    <script>
-        function redirectToAuth() {
-            // Stockez l'URL actuelle pour revenir après la connexion
-            var returnUrl = window.location.href;
-            alert("Votre commande a été enregistrée avec succès !");
-            // Utilisateur non connecté, redirigez vers la page d'authentification Breeze
-            window.location.href = '{{ route("login") }}?redirect=' + encodeURIComponent(returnUrl);
-            
-        }
 
-    </script>
 
 
     <script>
@@ -242,6 +239,46 @@
 
             // Mettez à jour l'élément affichant le prix total
             document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
+        }
+    </script>
+
+
+    <script>
+        function checkAuthentication() {
+            // Vérifiez si l'utilisateur est connecté en consultant la barre de navigation
+            var userLoggedIn = document.getElementById('userLoggedIn'); // suppose que vous avez un élément dans votre barre de navigation avec l'ID 'userLoggedIn' qui indique si l'utilisateur est connecté ou non
+
+            if (userLoggedIn) {
+                // Si l'utilisateur est connecté, passez la commande
+                placeOrder();
+            } else {
+                // Si l'utilisateur n'est pas connecté, affichez un message l'invitant à se connecter
+                alert("Veuillez vous connecter pour passer une commande.");
+            }
+        }
+
+        function placeOrder() {
+            // Code pour passer la commande
+            // Vous pouvez ajouter ici le code pour soumettre les données du panier et confirmer la commande
+        }
+    </script>
+
+    <script>
+        // Fonction pour afficher un message de commande passée
+        function showOrderConfirmation() {
+            // Afficher un message ou un pop-up
+            alert("Commande passée avec succès !");
+        }
+
+        // Ajouter un événement "click" au bouton "Passer la commande"
+        var passCommandButton = document.querySelector("#passCommandButton");
+        if (passCommandButton) {
+            passCommandButton.addEventListener("click", function(event) {
+                // Empêcher le comportement par défaut du formulaire (envoi)
+                event.preventDefault();
+                // Appeler la fonction pour afficher le message de commande passée
+                showOrderConfirmation();
+            });
         }
     </script>
 

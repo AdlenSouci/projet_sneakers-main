@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -26,26 +27,26 @@ class BasketController extends Controller
             'article_id' => 'required|exists:articles,id',
             'quantity' => 'required|integer|min:0',
         ]);
-    
+
         // Récupérer l'article à partir de la base de données
         $article = Article::findOrFail($request->article_id);
-    
+
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
-    
+
         // Trouver l'index de l'article dans le panier
         $itemIndex = array_search($article->id, array_column($cartItems, 'id'));
-    
+
         // Mettre à jour la quantité de l'article dans le panier
         if ($itemIndex !== false) {
             $cartItems[$itemIndex]['quantity'] = $request->quantity;
-    
+
             // Mettre à jour le panier dans la session
             Session::put('cart', $cartItems);
-    
+
             // Calculer le nouveau prix total
             $totalPrice = $this->calculateTotalPrice($cartItems);
-    
+
             // Retourner une réponse JSON avec le message, le nouveau prix total et le panier mis à jour
             return response()->json([
                 'message' => 'Quantité mise à jour avec succès',
@@ -53,12 +54,12 @@ class BasketController extends Controller
                 'cart' => $cartItems,
             ]);
         }
-    
+
         // Retourner une réponse JSON avec un message d'erreur si l'article n'est pas trouvé dans le panier
         return response()->json(['error' => 'Article non trouvé dans le panier']);
     }
-    
-    
+
+
 
     public function index()
     {
@@ -127,40 +128,53 @@ class BasketController extends Controller
         return response()->json(['message' => 'Le panier a été vidé avec succès']);
     }
     public function clearBasketArticle(Request $request)
-{
-    // Validation des données
-    $request->validate([
-        'article_id' => 'required|exists:articles,id',
-    ]);
-
-    // Récupérer l'article à partir de la base de données
-    $article = Article::findOrFail($request->article_id);
-
-    // Récupérer le panier actuel depuis la session
-    $cartItems = Session::get('cart', []);
-
-    // Trouver l'index de l'article dans le panier
-    $itemIndex = array_search($article->id, array_column($cartItems, 'id'));
-
-    if ($itemIndex !== false) {
-        // Retirer l'article du panier
-        array_splice($cartItems, $itemIndex, 1);
-
-        // Mettre à jour le panier dans la session
-        Session::put('cart', $cartItems);
-
-        // Calculer le nouveau prix total
-        $totalPrice = $this->calculateTotalPrice($cartItems);
-
-        // Retourner une réponse JSON avec le message, le nouveau prix total et le panier mis à jour
-        return response()->json([
-            'message' => 'Article supprimé avec succès',
-            'totalPrice' => $totalPrice,
-            'cart' => $cartItems,
+    {
+        // Validation des données
+        $request->validate([
+            'article_id' => 'required|exists:articles,id',
         ]);
-    }
 
-    // Retourner une réponse JSON avec un message d'erreur si l'article n'est pas trouvé dans le panier
-    return response()->json(['error' => 'Article non trouvé dans le panier']);
-}
+        // Récupérer l'article à partir de la base de données
+        $article = Article::findOrFail($request->article_id);
+
+        // Récupérer le panier actuel depuis la session
+        $cartItems = Session::get('cart', []);
+
+        // Trouver l'index de l'article dans le panier
+        $itemIndex = array_search($article->id, array_column($cartItems, 'id'));
+
+        if ($itemIndex !== false) {
+            // Retirer l'article du panier
+            array_splice($cartItems, $itemIndex, 1);
+
+            // Mettre à jour le panier dans la session
+            Session::put('cart', $cartItems);
+
+            // Calculer le nouveau prix total
+            $totalPrice = $this->calculateTotalPrice($cartItems);
+
+            // Retourner une réponse JSON avec le message, le nouveau prix total et le panier mis à jour
+            return response()->json([
+                'message' => 'Article supprimé avec succès',
+                'totalPrice' => $totalPrice,
+                'cart' => $cartItems,
+            ]);
+        }
+
+        // Retourner une réponse JSON avec un message d'erreur si l'article n'est pas trouvé dans le panier
+        return response()->json(['error' => 'Article non trouvé dans le panier']);
+    }
+    public function passerCommande()
+    {
+        // Vérifiez si l'utilisateur est authentifié
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour passer une commande.');
+        }
+        else {
+            return redirect()->route('basket')->with('success', 'Commande passée avec succès.');
+        }
+
+
+        
+    }
 }
