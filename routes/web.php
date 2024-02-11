@@ -12,6 +12,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\basketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +36,14 @@ Route::get('/basket', [basketController::class, 'index'])->name('basket');
 Route::get('/carousel', [CarouselController::class, 'index'])->name('carousel');
 Route::get('/search', [ShopController::class, 'search'])->name('search');
 Route::post('/add-to-basket', [BasketController::class, 'addToBasket'])->name('addToBasket');
+
 Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('clearBasket');
 Route::post('/clear-basket-article', [BasketController::class, 'clearBasketArticle'])->name('clear-basket-article');
 Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');
 Route::get('/get-total-price', 'BasketController@getTotalPrice');
 //Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
 Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
+Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article');
 
 
 Route::get('/dashboard', function () {

@@ -8,10 +8,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 
-    @vite(['resources/css/accueil.css' , 'resources/css/carousel.css'])
+    @vite(['resources/css/accueil.css'])
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <title>My Sneakers</title>
+
+    <style>
+        /* CSS personnalisé pour le carousel */
+        .carousel {
+            margin: auto;
+            /* Centrer horizontalement */
+            max-width: 500px;
+            /* Largeur maximale du carousel */
+        }
+
+        .carousel-item img {
+            max-height: 400px;
+            /* Hauteur maximale des images du carousel */
+            object-fit: cover;
+            /* Assurez-vous que l'image remplit l'espace sans distorsion */
+            width: 100%;
+            /* Largeur maximale des images */
+        }
+    </style>
 </head>
 
 <body class="main-body">
@@ -35,31 +54,42 @@
         </div>
     </div>
 
-    <div class="logo" style="position: absolute; top: 0; right: 0;">
-        <img class="logo" src="{{ asset('img/logo.png') }}" alt="Logo" width="200" height="200">
-    </div>
 
 
 
+    <br>
 
 
-    <div class="container custom-container">
-        <input type="radio" name="slider" id="item-1" checked>
-        <input type="radio" name="slider" id="item-2">
-        <input type="radio" name="slider" id="item-3">
-        <div class="cards">
-            <label class="card-cust" for="item-1" id="img-1">
-                <img class=" custom-img" src="{{ asset('img/1.jpg') }}" alt="sneaker">
-            </label>
-            <label class="card-cust" for="item-2" id="img-2">
-                <img class=" custom-img" src="{{ asset('img/2.jpg') }}" alt="sneaker">
-            </label>
-            <label class="card-cust" for="item-3" id="img-3">
-                <img class=" custom-img" src="{{ asset('img/3.jpg') }}" alt="sneaker">
-            </label>
+    <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('img/1.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/2.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/3.jpg') }}" class="d-block w-100" alt="...">
+            </div>
         </div>
-
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
+
+    <br>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; My sneakers</p>
+        </div>
+    </footer>
+    <br>
 
     <!--Script Bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
