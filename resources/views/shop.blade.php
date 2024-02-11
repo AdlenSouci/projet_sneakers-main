@@ -37,7 +37,7 @@
                                     <!-- Add other details as needed -->
 
                                 </div>
-                            </div>
+                            </div>    
                             <!-- Product actions -->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
