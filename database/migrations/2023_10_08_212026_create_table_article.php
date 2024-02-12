@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('nom_famille', 70)->nullable(false);
             $table->string('modele', 70)->nullable(false);
             $table->text('description')->nullable(true);
-            $table->unsignedBigInteger('taille_id')->nullable();
-            $table->foreign('taille_id')->references('id')->on('tailles');
             $table->string('couleur', 60)->nullable(false);
             $table->decimal('prix_public', 9, 2)->nullable(false);
             $table->decimal('prix_achat', 9, 2)->nullable(false);
@@ -33,7 +31,6 @@ return new class extends Migration
             $table->index('id_marque');
             $table->index('couleur');
             $table->index('prix_public');
-            $table->index('taille_id');
 
             $table->index('id_famille');
             $table->index('img');
