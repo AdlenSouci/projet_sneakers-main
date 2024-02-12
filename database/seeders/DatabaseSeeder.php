@@ -19,11 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call([PaysSeeder::class]);
         $this->call([ArticlesSeeder::class]);
         $this->call([TvasSeeder::class]);
-        $this->call([TaillesSeeder::class]);
+        $this->call([TaillesArticlesSeeder::class]);
+    
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+      
     }
 }

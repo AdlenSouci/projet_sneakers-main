@@ -40,9 +40,12 @@
                         <label for="pointure">Sélectionnez une pointure :</label>
 
                         <select id="pointure" name="pointure">
-                            @foreach($tailles as $taille)
-                            <option value="{{ $taille->id }}">{{ $taille->taille }}</option>
-                            @endforeach
+                                                    <option value="">Choisissez une pointure</option>
+                                                    <option value=38>38</option>
+                                                    <option value=39>39</option>
+                                                    <option value=40>40</option>
+                                                    <option value=41>41</option>
+                                                    <option value=42>42</option>
                         </select>
 
 

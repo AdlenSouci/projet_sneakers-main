@@ -66,12 +66,14 @@ class BasketController extends Controller
     {
         // Récupérer les articles du panier depuis la session
         $cartItems = Session::get('cart', []);
-        $tailles = Taille::all();
+        
 
         // Calculer le prix total
         $totalPrice = $this->calculateTotalPrice($cartItems);
+        //$tailles = Article::find($cartItems->Id)->tailles();
 
-        return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice, 'tailles' => $tailles]);
+        //return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice, 'tailles' => $tailles]);
+        return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice]);
     }
 
 
