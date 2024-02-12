@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\Taille;
+use App\Models\TaillesArticle;
 
 class BasketController extends Controller
 {
@@ -53,6 +54,7 @@ class BasketController extends Controller
                 'message' => 'Quantité mise à jour avec succès',
                 'totalPrice' => $totalPrice,
                 'cart' => $cartItems,
+
             ]);
         }
 
@@ -66,7 +68,7 @@ class BasketController extends Controller
     {
         // Récupérer les articles du panier depuis la session
         $cartItems = Session::get('cart', []);
-        
+
 
         // Calculer le prix total
         $totalPrice = $this->calculateTotalPrice($cartItems);
@@ -89,6 +91,9 @@ class BasketController extends Controller
         // Récupérer l'article à partir de la base de données
         $article = Article::findOrFail($request->article_id);
 
+        // Récupérer les tailles associées à cet article
+        $tailles = $article->tailles->pluck('taille');
+
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
 
@@ -107,7 +112,7 @@ class BasketController extends Controller
             'image' => asset($article->img),
             'price' => $article->prix_public,
             'quantity' => 1,
-            // Ajoutez d'autres informations nécessaires à afficher dans le panier
+            'tailles' => $tailles->toArray(), 
         ];
 
         // Mettre à jour le panier dans la session
@@ -119,6 +124,7 @@ class BasketController extends Controller
         // Retourner une réponse JSON avec le message et le nouveau prix total
         return response()->json(['message' => 'Article ajouté au panier avec succès', 'totalPrice' => $totalPrice]);
     }
+
 
     public function clearBasket()
     {
@@ -173,12 +179,8 @@ class BasketController extends Controller
         // Vérifiez si l'utilisateur est authentifié
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Veuillez vous connecter pour passer une commande.');
-        }
-        else {
+        } else {
             return redirect()->route('basket')->with('success', 'Commande passée avec succès.');
         }
-
-
-        
     }
 }

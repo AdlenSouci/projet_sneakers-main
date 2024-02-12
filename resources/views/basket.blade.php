@@ -51,18 +51,16 @@
 
                                             <div class="col-md-6 col-lg-5 col-xl-5 d-flex justify-content-end align-items-center">
                                                 <label for="pointure">Sélectionnez une pointure :</label>
-
-                                                <select id="pointure" name="pointure" class="form-select">
-                                                    <option value=38>38</option>
-                                                    <option value=39>39</option>
-                                                    <option value=40>40</option>
-                                                    <option value=41>41</option>
-                                                    <option value=42>42</option>
+                                                <select id="pointure" name="pointure">
+                                                    <option value="">Choisissez une pointure</option>
+                                                    @foreach($item['tailles'] as $taille)
+                                                    <option value="{{ $taille }}">{{ $taille }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="updateItemQuantity(this)" />
 
                                             </div>
-                                         
+
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0 item-price" data-item-price="{{ $item['price'] }}">€ {{ $item['price'] * $item['quantity'] }}</h6>
                                                 <button class="btn btn-danger" onclick="clearBasketArticle(this)" data-article-id="{{ $item['id'] }}">Supprimer</button>
@@ -95,9 +93,9 @@
 
                                             <h5 class="text-uppercase mb-3">Shipping</h5>
 
-                                            
 
-                                            
+
+
 
                                             <hr class="my-4">
 

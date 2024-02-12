@@ -20,10 +20,10 @@ class ArticleController extends Controller
         // Récupérez l'article depuis la base de données en fonction de l'ID
         $article = Article::find($id);
 
-        //$tailles = Taille::find($id);
-        $tailles = $article->tailles();
-        // Passez l'article à la vue et affichez-le sur la page
-        return view('article', ['article' => $article] , ['tailles' => $tailles]);
-    }
+        // Récupérez les tailles associées à cet article
+        $tailles = $article->tailles->pluck('taille');
 
+        // Passez l'article et les tailles à la vue et affichez-le sur la page
+        return view('article', ['article' => $article, 'tailles' => $tailles]);
+    }
 }
