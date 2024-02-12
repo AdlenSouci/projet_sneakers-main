@@ -102,7 +102,7 @@ class ArticlesSeeder extends Seeder
             'description' => 'La collaboration emblématique entre Off-White et Nike, l\'Air Jordan 1 arbore un design unique avec des détails de conception distinctifs de Virgil Abloh.',
             'prix_public' => 500.00,
             'prix_achat' => 250.00,
-            'img' => 'img/' . 'off.jpeg', // Ajoutez le chemin relatif de votre image ici
+            'img' => 'img/' . 'off.webp', // Ajoutez le chemin relatif de votre image ici
         ]);
 
         DB::table('articles')->insert([
