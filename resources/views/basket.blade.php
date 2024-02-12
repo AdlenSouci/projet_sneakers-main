@@ -48,9 +48,19 @@
                                                 <h6 class="text-muted">article</h6>
                                                 <h6 class="text-black mb-0">{{ $item['name'] }}</h6>
                                             </div>
-                                            <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="updateItemQuantity(this)" />
 
+                                            <div class="col-md-6 col-lg-5 col-xl-5 d-flex justify-content-end align-items-center">
+                                                <label for="pointure">Sélectionnez une pointure :</label>
 
+                                                <select id="pointure" name="pointure" class="form-select">
+                                                    @foreach($tailles as $taille)
+                                                    <option value="{{ $taille->id }}">{{ $taille->taille }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="updateItemQuantity(this)" />
+
+                                            </div>
+                                         
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0 item-price" data-item-price="{{ $item['price'] }}">€ {{ $item['price'] * $item['quantity'] }}</h6>
                                                 <button class="btn btn-danger" onclick="clearBasketArticle(this)" data-article-id="{{ $item['id'] }}">Supprimer</button>
@@ -83,23 +93,9 @@
 
                                             <h5 class="text-uppercase mb-3">Shipping</h5>
 
-                                            <div class="mb-4 pb-2">
-                                                <select class="select">
-                                                    <option value="1">Standard-Delivery- €5.00</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                    <option value="4">Four</option>
-                                                </select>
-                                            </div>
+                                            
 
-                                            <h5 class="text-uppercase mb-3">Give code</h5>
-
-                                            <div class="mb-5">
-                                                <div class="form-outline">
-                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                                    <label class="form-label" for="form3Examplea2">Enter your code</label>
-                                                </div>
-                                            </div>
+                                            
 
                                             <hr class="my-4">
 

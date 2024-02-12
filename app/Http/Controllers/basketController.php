@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Taille;
 
 class BasketController extends Controller
 {
@@ -65,11 +66,12 @@ class BasketController extends Controller
     {
         // Récupérer les articles du panier depuis la session
         $cartItems = Session::get('cart', []);
+        $tailles = Taille::all();
 
         // Calculer le prix total
         $totalPrice = $this->calculateTotalPrice($cartItems);
 
-        return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice]);
+        return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice, 'tailles' => $tailles]);
     }
 
 

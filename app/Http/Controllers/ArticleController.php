@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Taille;
 
 
 
@@ -19,8 +20,10 @@ class ArticleController extends Controller
         // Récupérez l'article depuis la base de données en fonction de l'ID
         $article = Article::find($id);
 
+        $tailles = Taille::all();
+
         // Passez l'article à la vue et affichez-le sur la page
-        return view('article', ['article' => $article]);
+        return view('article', ['article' => $article] , ['tailles' => $tailles]);
     }
 
 }
