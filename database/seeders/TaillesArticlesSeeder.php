@@ -16,7 +16,7 @@ class TaillesArticlesSeeder extends Seeder
         for ($j=1 ; $j<10 ; $j++) {
             for ($i=38 ; $i<43 ; $i++) {
                 DB::table('tailles_articles')->insert([
-                    'id_article' => $j, 'taille' => $i
+                    'article_id' => $j, 'taille' => $i
                 ]);
             }
         }

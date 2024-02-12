@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('tailles_articles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_article')->nullable(false);
+            $table->unsignedBigInteger('article_id')->nullable(false);
             $table->integer('taille')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('id_article')->references('id')->on('articles');
+            $table->foreign('article_id')->references('id')->on('articles');
 
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_tailles_articles');
+        Schema::dropIfExists('tailles_articles');
     }
 };
