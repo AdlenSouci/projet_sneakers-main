@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([PaysSeeder::class]);
         $this->call([ArticlesSeeder::class]);
         $this->call([TvasSeeder::class]);
+        $this->call([TaillesSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
