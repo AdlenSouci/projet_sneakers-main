@@ -12,7 +12,7 @@ use App\Models\TaillesArticle;
 class BasketController extends Controller
 {
 
-    private function calculateTotalPrice($cartItems)
+    private function calculerPrixTotal($cartItems)
     {
         $totalPrice = 0;
 
@@ -47,7 +47,7 @@ class BasketController extends Controller
             Session::put('cart', $cartItems);
 
             // Calculer le nouveau prix total
-            $totalPrice = $this->calculateTotalPrice($cartItems);
+            $totalPrice = $this->calculerPrixTotal($cartItems);
 
             // Retourner une réponse JSON avec le message, le nouveau prix total et le panier mis à jour
             return response()->json([
@@ -71,7 +71,7 @@ class BasketController extends Controller
 
 
         // Calculer le prix total
-        $totalPrice = $this->calculateTotalPrice($cartItems);
+        $totalPrice = $this->calculerPrixTotal($cartItems);
         //$tailles = Article::find($cartItems->Id)->tailles();
 
         //return view('basket', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice, 'tailles' => $tailles]);
@@ -119,7 +119,7 @@ class BasketController extends Controller
         Session::put('cart', $cartItems);
 
         // Calculer le nouveau prix total
-        $totalPrice = $this->calculateTotalPrice($cartItems);
+        $totalPrice = $this->calculerPrixTotal($cartItems);
 
         // Retourner une réponse JSON avec le message et le nouveau prix total
         return response()->json(['message' => 'Article ajouté au panier avec succès', 'totalPrice' => $totalPrice]);
@@ -161,7 +161,7 @@ class BasketController extends Controller
             Session::put('cart', $cartItems);
 
             // Calculer le nouveau prix total
-            $totalPrice = $this->calculateTotalPrice($cartItems);
+            $totalPrice = $this->calculerPrixTotal($cartItems);
 
             // Retourner une réponse JSON avec le message, le nouveau prix total et le panier mis à jour
             return response()->json([
