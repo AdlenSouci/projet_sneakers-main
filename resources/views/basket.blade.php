@@ -57,7 +57,7 @@
                                                     <option value="{{ $taille }}">{{ $taille }}</option>
                                                     @endforeach
                                                 </select>
-                                                <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="updateItemQuantity(this)" />
+                                                <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="changerQuantiter(this)" />
 
                                             </div>
 
@@ -104,7 +104,7 @@
                                             @if(auth()->check())
                                             <form action="{{ route('passer-commande') }}" method="post">
                                                 @csrf
-                                                <button id="passCommandButton" type="submit" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                                <button id="passCommandButton" type="submit" onclick="passerCommande()"class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else
                                             <p>Connectez-vous pour passer une commande.</p>
@@ -190,7 +190,7 @@
 
 
     <script>
-        function updateItemQuantity(input) {
+        function changerQuantiter(input) {
             // Obtenez les valeurs nécessaires
             var newQuantity = parseInt(input.value);
             var pricePerItem = parseFloat(input.getAttribute("data-item-price"));
@@ -273,6 +273,31 @@
             });
         }
     </script>
+
+
+<script>
+    function passerCommande() {
+        fetch('{{ route("passer-commande") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                cartItems: "{{ $cartItems }}", // Assurez-vous que $cartItems est correctement défini dans votre vue Blade
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // Rechargez la page ou effectuez d'autres actions si nécessaire
+        })
+        .catch(error => {
+            console.error('Erreur lors de la tentative de passer la commande :', error);
+        });
+    }
+</script>
+
 
 
 

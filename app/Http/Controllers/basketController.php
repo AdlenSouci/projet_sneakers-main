@@ -8,6 +8,8 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\TaillesArticle;
+use App\Models\commande_detail;
+use App\Models\commande_entete;
 
 class BasketController extends Controller
 {
@@ -22,7 +24,7 @@ class BasketController extends Controller
 
         return $totalPrice;
     }
-    public function updateItemQuantity(Request $request)
+    public function changerQuantiter(Request $request)
     {
         // Validation des données
         $request->validate([
@@ -81,7 +83,7 @@ class BasketController extends Controller
 
 
 
-    public function addToBasket(Request $request)
+    public function ajouter_au_panier(Request $request)
     {
         // Validation des données
         $request->validate([
@@ -91,7 +93,7 @@ class BasketController extends Controller
         // Récupérer l'article à partir de la base de données
         $article = Article::findOrFail($request->article_id);
 
-        // Récupérer les tailles associées à cet article
+        // Récupérer les tailles associées à l'article
         $tailles = $article->tailles->pluck('taille');
 
         // Récupérer le panier actuel depuis la session
@@ -112,7 +114,7 @@ class BasketController extends Controller
             'image' => asset($article->img),
             'price' => $article->prix_public,
             'quantity' => 1,
-            'tailles' => $tailles->toArray(), 
+            'tailles' => $tailles->toArray(),
         ];
 
         // Mettre à jour le panier dans la session
@@ -179,8 +181,31 @@ class BasketController extends Controller
         // Vérifiez si l'utilisateur est authentifié
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Veuillez vous connecter pour passer une commande.');
-        } else {
-            return redirect()->route('basket')->with('success', 'Commande passée avec succès.');
         }
+
+        // Créer l'en-tête de commande
+        $commandeEntete = new commande_entete();
+        $commandeEntete->date = now(); // Utilisez la date et l'heure actuelles
+        $commandeEntete->id_clients = Auth::id(); // L'ID de l'utilisateur connecté
+        $commandeEntete->save();
+
+        // Enregistrer les détails de chaque article dans la commande
+        $cartItems = Session::get('cart', []);
+        foreach ($cartItems as $item) {
+            $commandeDetail = new commande_detail();
+            $commandeDetail->id_num_commande = $commandeEntete->id; // L'ID de la commande en-tête
+            $commandeDetail->id_article = $item['id'];
+            $commandeDetail->id_quantite_commmande = $item['quantity'];
+            $commandeDetail->prix_unitaire_brut = $item['price'];
+            $commandeDetail->prix_unitaire_net = $item['price'];
+            $commandeDetail->montant_ht = $item['price'] * $item['quantity'];
+            $commandeDetail->remise = 0;
+            $commandeDetail->save();
+        }
+
+        // Effacez le panier après avoir passé la commande
+        Session::forget('cart');
+
+        return redirect()->route('basket')->with('success', 'Commande passée avec succès.');
     }
 }

@@ -28,24 +28,24 @@
                 <?php foreach ($articlesData as $article) : ?>
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <!-- Product image -->
+                         
                             <img class="card-img-top" src="{{ asset($article['img']) }}" alt="..." />
-                            <!-- Product details -->
+                          
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder"><?= $article['modele'] ?></h5>
-                                    <!-- Add other details as needed -->
+                                    
 
                                 </div>
                             </div>    
-                            <!-- Product actions -->
+                           
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
                                     <a class="btn btn-outline-dark mt-auto toggleDescription" href="{{ route('article', $article['id']) }}">View options</a>
                                     <br>
                                     <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
-                                    <button class="btn btn-outline-dark mt-auto addToBasket" data-article-id="{{ $article['id'] }}">Add to basket</button>
+                                    <button class="btn btn-outline-dark mt-auto ajouter_au_panier" data-article-id="{{ $article['id'] }}">Passe a la caisse</button>
 
 
                                 </div>
@@ -75,13 +75,13 @@
 
     <script>
         document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('addToBasket')) {
+            if (event.target.classList.contains('ajouter_au_panier')) {
                 // Récupérez l'ID de l'article à partir de l'attribut data-article-id
                 var articleId = event.target.getAttribute('data-article-id');
 
                 // Faites une requête Ajax pour ajouter l'article au panier
                 $.ajax({
-                    url: '{{ route("addToBasket") }}',
+                    url: '{{ route("ajouter_au_panier") }}',
                     type: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',

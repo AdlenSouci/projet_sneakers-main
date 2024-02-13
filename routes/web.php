@@ -35,11 +35,11 @@ Route::get('/contact', [contactController::class, 'index'])->name('contact');
 Route::get('/basket', [basketController::class, 'index'])->name('basket');
 Route::get('/carousel', [CarouselController::class, 'index'])->name('carousel');
 Route::get('/search', [ShopController::class, 'search'])->name('search');
-Route::post('/add-to-basket', [BasketController::class, 'addToBasket'])->name('addToBasket');
+Route::post('/ajouter_au_panier', [BasketController::class, 'ajouter_au_panier'])->name('ajouter_au_panier');
 
 Route::post('/clear-basket', [BasketController::class, 'clearBasket'])->name('clearBasket');
 Route::post('/clear-basket-article', [BasketController::class, 'clearBasketArticle'])->name('clear-basket-article');
-Route::post('/update-item-quantity', 'BasketController@updateItemQuantity');
+Route::post('/update-item-quantity', 'BasketController@changerQuantiter');
 Route::get('/get-total-price', 'BasketController@getTotalPrice');
 //Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
 Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');

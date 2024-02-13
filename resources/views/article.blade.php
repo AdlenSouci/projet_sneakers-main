@@ -47,7 +47,8 @@
                         </select>
 
 
-                        <button class="btn btn-outline-dark mt-auto addToBasket" data-article-id="{{ $article['id'] }}">Add to basket</button>
+                        <button class="btn btn-outline-dark mt-auto ajouter_au_panier" data-article-id="{{ $article['id'] }}">Passe a la caisse 
+                        </button> 
                     </div>
                 </div>
             </div>
@@ -172,13 +173,13 @@
 
     <script>
         document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('addToBasket')) {
+            if (event.target.classList.contains('ajouter_au_panier')) {
                 // Récupérez l'ID de l'article à partir de l'attribut data-article-id
                 var articleId = event.target.getAttribute('data-article-id');
 
                 // Faites une requête Ajax pour ajouter l'article au panier
                 $.ajax({
-                    url: '{{ route("addToBasket") }}',
+                    url: '{{ route("ajouter_au_panier") }}',
                     type: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',
