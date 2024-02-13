@@ -275,32 +275,11 @@
     </script>
 
 
-<script>
-    function passerCommande() {
-        fetch('{{ route("passer-commande") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-            body: JSON.stringify({
-                cartItems: "{{ $cartItems }}", // Assurez-vous que $cartItems est correctement défini dans votre vue Blade
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            // Rechargez la page ou effectuez d'autres actions si nécessaire
-        })
-        .catch(error => {
-            console.error('Erreur lors de la tentative de passer la commande :', error);
-        });
-    }
+<script> function passerCommande() {
+    
+}
+
 </script>
-
-
-
-
 </body>
 
 </html>
