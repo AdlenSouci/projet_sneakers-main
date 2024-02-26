@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="navbar navbar-expand-lg navbar-light bg-custom">
+<nav x-data="{ open: false }" class="navbar navbar-expand-lg navbar-light bg-custom breeze">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -133,7 +133,7 @@
     </div>
    
      
-    @vite(['resources/css/nav.css',  'resources/css/app2.css' , 'resources/js/app.js'])
+    @vite(['resources/css/nav.css',  'resources/css/app.css' , 'resources/js/app.js'])
 
          
 </nav>

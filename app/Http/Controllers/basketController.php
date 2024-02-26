@@ -128,7 +128,7 @@ class BasketController extends Controller
     }
 
 
-    public function clearBasket()
+    public function viderPanier()
     {
         // Supprimez le panier de la session
         Session::forget('cart');
@@ -139,7 +139,7 @@ class BasketController extends Controller
         // Retournez une réponse JSON indiquant le succès de l'opération
         return response()->json(['message' => 'Le panier a été vidé avec succès']);
     }
-    public function clearBasketArticle(Request $request)
+    public function viderArticlePanier(Request $request)
     {
         // Validation des données
         $request->validate([

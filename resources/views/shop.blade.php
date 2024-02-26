@@ -19,33 +19,37 @@
 
 @include('layouts.navigation')
 
+<div class="typewriter">
+    <h1>Bienvenue sur My Sneakers Shop</h1>
+</div>
 
-
-    <section class="py-5">
+    <section class="py-5 custom-section">
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center g-3 ">
 
                 <?php foreach ($articlesData as $article) : ?>
-                    <div class="col mb-5">
-                        <div class="card h-100">
+                    <div class="col mb-5 custom-col">
+                        <div class="card h-100 custom-card">
                          
-                            <img class="card-img-top" src="{{ asset($article['img']) }}" alt="..." />
+                            <img class="card-img-top custom-card-img-top " src="{{ asset($article['img']) }}" alt="..." />
                           
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder"><?= $article['modele'] ?></h5>
+                            <div class="card-body p-4 custom-card-body">
+                                <div class="text-center custom-text-center">
+                                    <h5 class="fw-bolder custom-h5"><?= $article['modele'] ?></h5>
                                     
 
                                 </div>
                             </div>    
                            
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder"><?= $article['prix_public'] ?></h5>
-                                    <a class="btn btn-outline-dark mt-auto toggleDescription" href="{{ route('article', $article['id']) }}">View options</a>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent custom-card-footer">
+                                <div class="text-center custom-text-center">
+                                    <h5 class="fw-bolder custom-h5"><?= $article['prix_public'] ?></h5>
+                                    <br>
+                                    <a class="btn btn-outline-dark mt-auto toggleDescription custom-a" href="{{ route('article', $article['id']) }}">View options</a>
+                                    <br>
                                     <br>
                                     <!-- Ajoutez les attributs data-bs-toggle et data-bs-target -->
-                                    <button class="btn btn-outline-dark mt-auto ajouter_au_panier" data-article-id="{{ $article['id'] }}">Passe a la caisse</button>
+                                    <button class="btn btn-outline-dark mt-auto ajouter_au_panier custom-button" data-article-id="{{ $article['id'] }}">Passe a la caisse</button>
 
 
                                 </div>
@@ -61,9 +65,9 @@
    
 
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; My sneakers 2023</p>
+    <footer class="py-5 bg-dark custom-footer">
+        <div class="container custom-container">
+            <p class="m-0 text-center text-white custom-p">Copyright © My sneakers 2023</p>
         </div>
     </footer>
 

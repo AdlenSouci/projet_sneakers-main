@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <title>My Sneakers</title>
+
+    <style>
+       
+    </style>
 </head>
 
 <body>
@@ -50,20 +54,20 @@
                                             </div>
 
                                             <div class="col-md-6 col-lg-5 col-xl-5 d-flex justify-content-end align-items-center">
-                                                <label for="pointure">Sélectionnez une pointure :</label>
-                                                <select id="pointure" name="pointure">
-                                                    <option value="">Choisissez une pointure</option>
+                                                <label class="custom-label rounded" for="pointure">Sélectionnez une pointure :</label>
+                                                <select id="pointure" name="pointure"  class= " custom-input rounded">
+                                                    <option value="" >Choisissez une pointure</option>
                                                     @foreach($item['tailles'] as $taille)
                                                     <option value="{{ $taille }}">{{ $taille }}</option>
                                                     @endforeach
                                                 </select>
-                                                <input class="form-control form-control-sm quantity-input" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="changerQuantiter(this)" />
+                                                <input class="form-control form-control-sm quantity-input  rounded" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="changerQuantiter(this)" />
 
                                             </div>
 
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0 item-price" data-item-price="{{ $item['price'] }}">€ {{ $item['price'] * $item['quantity'] }}</h6>
-                                                <button class="btn btn-danger" onclick="clearBasketArticle(this)" data-article-id="{{ $item['id'] }}">Supprimer</button>
+                                                <button class="btn btn-danger" onclick="viderArticlePanier(this)" data-article-id="{{ $item['id'] }}">Supprimer</button>
 
 
                                             </div>
@@ -76,7 +80,7 @@
                                         @endforeach
 
                                         <div class="pt-5">
-                                            <button class="btn btn-danger" onclick="clearBasket()">Vider le panier</button>
+                                            <button class="btn btn-danger" onclick="viderPanier()">Vider le panier</button>
                                             <h6 class="mb-0"><a href="/shop" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
 
                                         </div>
@@ -86,7 +90,7 @@
                                             <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                             <hr class="my-4">
 
-                                            
+
 
                                             <h5 class="text-uppercase mb-3">Shipping</h5>
 
@@ -104,7 +108,7 @@
                                             @if(auth()->check())
                                             <form action="{{ route('passer-commande') }}" method="post">
                                                 @csrf
-                                                <button id="passCommandButton" type="submit" onclick="passerCommande()"class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                                <button id="passCommandButton" type="submit" onclick="passerCommande()" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else
                                             <p>Connectez-vous pour passer une commande.</p>
@@ -133,8 +137,8 @@
 
 
     <script>
-        function clearBasket() {
-            fetch('/clear-basket', {
+        function viderPanier() {
+            fetch('/vider-panier', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -157,10 +161,10 @@
 
 
     <script>
-        function clearBasketArticle(button) {
+        function viderArticlePanier(button) {
             var articleId = button.getAttribute('data-article-id');
 
-            fetch('{{ route("clear-basket-article") }}', { // Utilisez la fonction route() pour générer l'URL de la route
+            fetch('{{ route("vider-article-panier") }}', { // Utilisez la fonction route() pour générer l'URL de la route
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -248,11 +252,6 @@
                 alert("Veuillez vous connecter pour passer une commande.");
             }
         }
-
-        function placeOrder() {
-            // Code pour passer la commande
-            // Vous pouvez ajouter ici le code pour soumettre les données du panier et confirmer la commande
-        }
     </script>
 
     <script>
@@ -275,11 +274,11 @@
     </script>
 
 
-<script> function passerCommande() {
-    
-}
+    <script>
+        function passerCommande() {
 
-</script>
+        }
+    </script>
 </body>
 
 </html>

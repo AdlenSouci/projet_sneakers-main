@@ -33,3 +33,45 @@ body {
     width: 50%;
     height: auto;
 }
+
+.custom-card{
+
+    width: 240px;
+    margin: 0 10px; 
+    
+    
+}
+
+.row-cols-2 {
+    gap: 0.5px;  /* Ajustez cette valeur */
+}
+
+.typewriter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.typewriter h1 {
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: .15em;
+    animation: 
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    0% { color: transparent; }
+    100% { color: inherit; }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+}
+
