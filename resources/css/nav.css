@@ -7,3 +7,8 @@
     color: purple;
     /* Couleur du texte dans la barre de navigation */
 }
+
+custom-shear {
+    border-radius: 20px;
+    border-color: #8a1d85;
+}

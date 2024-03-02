@@ -15,7 +15,7 @@
     <title>My Sneakers</title>
 
     <style>
-       
+
     </style>
 </head>
 
@@ -55,8 +55,8 @@
 
                                             <div class="col-md-6 col-lg-5 col-xl-5 d-flex justify-content-end align-items-center">
                                                 <label class="custom-label rounded" for="pointure">Sélectionnez une pointure :</label>
-                                                <select id="pointure" name="pointure"  class= " custom-input rounded">
-                                                    <option value="" >Choisissez une pointure</option>
+                                                <select id="pointure" name="pointure" class=" custom-input rounded">
+                                                    <option value="">Choisissez une pointure</option>
                                                     @foreach($item['tailles'] as $taille)
                                                     <option value="{{ $taille }}">{{ $taille }}</option>
                                                     @endforeach
@@ -108,6 +108,7 @@
                                             @if(auth()->check())
                                             <form action="{{ route('passer-commande') }}" method="post">
                                                 @csrf
+
                                                 <button id="passCommandButton" type="submit" onclick="passerCommande()" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else
@@ -204,7 +205,7 @@
                 // Recherchez l'élément avec la classe "item-price" dans le même parent que l'input
                 var itemPriceElement = input.closest('.row').querySelector(".item-price");
 
-                // Assurez-vous que l'élément existe avant de mettre à jour le contenu
+
                 if (itemPriceElement) {
                     // Calculez le nouveau total en multipliant la quantité par le prix unitaire
                     var newTotal = newQuantity * pricePerItem;
@@ -216,7 +217,7 @@
                     input.setAttribute("data-item-price", pricePerItem.toFixed(2));
 
                     // Mettez à jour le prix total
-                    updateTotalPrice();
+                    calculerPrixTotal();
                 }
             } else {
                 // Remettez la quantité à 0 si la nouvelle quantité n'est pas valide
@@ -224,7 +225,7 @@
             }
         }
 
-        function updateTotalPrice() {
+        function calculerPrixTotal() {
             // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
             var itemPrices = document.querySelectorAll('.item-price');
             var totalPrice = 0;
@@ -259,6 +260,8 @@
         function showOrderConfirmation() {
             // Afficher un message ou un pop-up
             alert("Commande passée avec succès !");
+
+
         }
 
         // Ajouter un événement "click" au bouton "Passer la commande"
@@ -269,16 +272,38 @@
                 event.preventDefault();
                 // Appeler la fonction pour afficher le message de commande passée
                 showOrderConfirmation();
+                viderPanier();
+
             });
         }
     </script>
 
-
     <script>
         function passerCommande() {
-
+            fetch('{{ route("passer-commande") }}', { // Utilisez la fonction route() pour générer l'URL de la route
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
+                    alert(data.message);
+                    // Videz le panier si la commande a été passée avec succès
+                    if (!data.error) {
+                        viderPanier();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la passation de la commande :', error);
+                });
         }
     </script>
+
+
+
 </body>
 
 </html>

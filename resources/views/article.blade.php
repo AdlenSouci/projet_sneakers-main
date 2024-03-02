@@ -37,9 +37,9 @@
                     <p class="lead"><?= $article['description'] ?></p>
                     <div class="d-flex">
 
-                        <label for="pointure">Sélectionnez une pointure :</label>
+                        <label for="pointure " class=" custom-label rounded">Sélectionnez une pointure :</label>
 
-                        <select id="pointure" name="pointure">
+                        <select id="pointure" name="pointure" class=" custom-label rounded>
                             <option value="">Choisissez une pointure</option>
                             @foreach($article->tailles as $taille)
                             <option value="{{ $taille->taille }}">{{ $taille->taille }}</option>

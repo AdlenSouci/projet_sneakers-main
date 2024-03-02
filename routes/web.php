@@ -11,7 +11,7 @@ use App\Http\Controllers\registerController;
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\basketController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\ArticleController;
 
@@ -41,20 +41,16 @@ Route::post('/ajouter_au_panier', [BasketController::class, 'ajouter_au_panier']
 Route::post('/vider-panier', [BasketController::class, 'viderPanier'])->name('viderPanier');
 Route::post('/vider-article-panier', [BasketController::class, 'viderArticlePanier'])->name('vider-article-panier');
 Route::post('/update-item-quantity', 'BasketController@changerQuantiter');
-Route::get('/get-total-price', 'BasketController@getTotalPrice');
+Route::get('/get-total-price', 'BasketController@calculerPrixTotal');
 //Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
 Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
 Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article');
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 
-//cela ne fonctionne pas
-Route::get('/articles/{id}/show-crud-a', [ArticleController::class, 'showCrudA'])->name('articles.showCrudA');
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
-Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
-Route::put('/articles/{id}', [ArticleController::class, 'update'])->name('articles.update');
-Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

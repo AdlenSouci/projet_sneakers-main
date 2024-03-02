@@ -37,8 +37,8 @@
                         {{ __('Login') }}
                     </x-nav-link>
                     @if(Request::url() == url('/shop'))
-                    <form class="d-flex ms-auto" action="{{ route('search') }}" method="GET">
-                        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                    <form class="d-flex ms-auto custom-shear rounded" action="{{ route('search') }}" method="GET">
+                        <input class="form-control me-2 custom-shear rounded" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-dark" type="submit">Submit</button>
                     </form>
                     @endif
