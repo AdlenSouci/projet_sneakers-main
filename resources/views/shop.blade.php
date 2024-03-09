@@ -19,9 +19,7 @@
 
 @include('layouts.navigation')
 
-<div class="typewriter">
-    <h1>Bienvenue sur My Sneakers Shop</h1>
-</div>
+
 
     <section class="py-5 custom-section">
         <div class="container px-4 px-lg-5 mt-5">

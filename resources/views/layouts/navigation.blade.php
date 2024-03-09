@@ -5,16 +5,16 @@
             <div class="flex">
                 <!-- Logo -->
                 <div>
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <!--<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-nav-link>-->
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -30,19 +30,23 @@
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    @guest
+                    <x-nav-link :href="route('register')" :active="request()>routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-nav-link>
+                    @endguest
+                    
+
                     @if(Request::url() == url('/shop'))
                     <form class="d-flex ms-auto custom-shear rounded" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2 custom-shear rounded" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-dark" type="submit">Submit</button>
                     </form>
                     @endif
-
+                
 
 
 
@@ -131,9 +135,9 @@
             @endauth
         </div>
     </div>
-   
-     
-    @vite(['resources/css/nav.css',  'resources/css/app.css' , 'resources/js/app.js'])
 
-         
+
+    @vite(['resources/css/nav.css', 'resources/css/app.css' , 'resources/js/app.js'])
+
+
 </nav>

@@ -9,6 +9,10 @@
 }
 
 custom-shear {
-    border-radius: 20px;
-    border-color: #8a1d85;
+    height: 30px;
+}
+
+.custom-shear button {
+    display: flex;
+    align-items: center;
 }
