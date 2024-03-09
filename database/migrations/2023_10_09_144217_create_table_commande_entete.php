@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date')->nullable(false);
             $table->unsignedBigInteger('id_clients')->nullable(false);
-            $table->unsignedBigInteger('id_num_commande')->nullable(false);
+            //$table->unsignedBigInteger('id_num_commande')->nullable(false);
             
             $table->timestamps();
 
             $table->index('date');
-            $table->index('id_num_commande');
+            //$table->index('id_num_commande');
 
-            $table->foreign('id_clients')->references('id')->on('clients');
-            $table->foreign('id_num_commande')->references('id')->on('commandes_entetes');
+            $table->foreign('id_clients')->references('id')->on('users');
+            //$table->foreign('id_num_commande')->references('id')->on('commandes_entetes');
             
             
 

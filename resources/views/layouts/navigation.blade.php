@@ -12,9 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <!--<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <!-- <x-nav-link :href="route('dashboard')" :active="request()>routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>-->
+</x-nav-link> -->
+
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -36,13 +37,13 @@
                     </x-nav-link>
 
                     @endguest
-                    
+
                     @guest
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-nav-link>
                     @endguest
-                    
+
                     @if(Request::url() == url('/shop'))
                     <form class="d-flex ms-auto custom-shear rounded" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2 custom-shear rounded" type="search" name="query" placeholder="Search" aria-label="Search">

@@ -37,7 +37,7 @@
                     <p class="lead"><?= $article['description'] ?></p>
                     <div class="d-flex">
 
-                        <label for="pointure " class=" custom-label rounded">Sélectionnez une pointure :</label>
+                    <label for="pointure " class=" custom-label rounded">Sélectionnez une pointure :&nbsp;</label>
 
                         <select id="pointure" name="pointure" class=" custom-label rounded>
                             <option value="">Choisissez une pointure</option>

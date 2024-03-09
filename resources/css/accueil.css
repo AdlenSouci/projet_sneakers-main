@@ -16,7 +16,11 @@
 .custom-label {
     border-radius: 20px;
     border-color: #8a1d85;
+    height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
+
 body {
     /*background-image: url("/img/imgvectoriel.jpg");*/
     background-color: rgb(215, 180, 230);
@@ -45,6 +49,9 @@ body {
     
     
 }
+
+
+
 
 .row-cols-2 {
     gap: 0.5px;  /* Ajustez cette valeur */

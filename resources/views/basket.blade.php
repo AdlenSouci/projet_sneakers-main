@@ -106,9 +106,9 @@
                                             </div>
 
                                             @if(auth()->check())
-                                            <form id="commandForm" action="{{ route('passer-commande') }}" method="POST">
+                                            <form action="" method="post">
                                                 @csrf
-                                                <button type="submit" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                                <button id="passCommandButton" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else
                                             <p>Connectez-vous pour passer une commande.</p>
@@ -272,8 +272,8 @@
                 // Empêcher le comportement par défaut du formulaire (envoi)
                 event.preventDefault();
                 // Appeler la fonction pour afficher le message de commande passée
-                showOrderConfirmation();
-                viderPanier();
+                //showOrderConfirmation();
+                //viderPanier();
 
             });
         }
