@@ -31,22 +31,25 @@
                         {{ __('Contact') }}
                     </x-nav-link>
                     @guest
-                    <x-nav-link :href="route('register')" :active="request()>routeIs('register')">
+                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
+
+                    @endguest
+                    
+                    @guest
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-nav-link>
                     @endguest
                     
-
                     @if(Request::url() == url('/shop'))
                     <form class="d-flex ms-auto custom-shear rounded" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2 custom-shear rounded" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-dark" type="submit">Submit</button>
                     </form>
                     @endif
-                
+
 
 
 
