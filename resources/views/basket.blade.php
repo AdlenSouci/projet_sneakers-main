@@ -106,10 +106,9 @@
                                             </div>
 
                                             @if(auth()->check())
-                                            <form action="{{ route('passer-commande') }}" method="post">
+                                            <form id="commandForm" action="{{ route('passer-commande') }}" method="POST">
                                                 @csrf
-
-                                                <button id="passCommandButton" type="submit" onclick="passerCommande()" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                                <button type="submit" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else
                                             <p>Connectez-vous pour passer une commande.</p>
@@ -133,7 +132,9 @@
 
 
 
-
+    <div id="successMessage" class="alert alert-success" style="display: none;">
+        La commande a été passée avec succès !
+    </div>
 
 
 
@@ -279,27 +280,10 @@
     </script>
 
     <script>
-        function passerCommande() {
-            fetch('{{ route("passer-commande") }}', { // Utilisez la fonction route() pour générer l'URL de la route
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
-                    alert(data.message);
-                    // Videz le panier si la commande a été passée avec succès
-                    if (!data.error) {
-                        viderPanier();
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la passation de la commande :', error);
-                });
-        }
+        document.getElementById('commandForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche le formulaire de se soumettre normalement
+            this.submit(); // Soumettez le formulaire
+        });
     </script>
 
 

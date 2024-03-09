@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
+
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\TaillesArticle;
-use App\Models\CommandeDetail;
+
+
+
 use App\Models\CommandeEntete;
+use App\Models\CommandeDetail;
+
 
 class BasketController extends Controller
 {
@@ -177,37 +180,38 @@ class BasketController extends Controller
         return response()->json(['error' => 'Article non trouvé dans le panier']);
     }
 
-    public function passerCommande(Request $request)
+
+
+    public function passerCommande()
     {
         // Récupérer l'utilisateur connecté
-        $user = auth()->user();
+        $userId = Auth::id();
+
+        // Générer un numéro de commande unique
+        $numCommande = mt_rand(100000, 999999);
+
+        // Créer une nouvelle commande entête avec le numéro de commande généré
+        $commandeEntete = new CommandeEntete;
+        $commandeEntete->id_num_commande = $numCommande;
+        $commandeEntete->date = now();
+        $commandeEntete->id_clients = $userId;
+        $commandeEntete->save();
 
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
 
-        // Créer une nouvelle commande entête
-        $commandeEntete = CommandeEntete::create([
-            'date' => now(),
-            'id_clients' => $user->id,
-        ]);
-
-        // Parcourir les éléments du panier et créer les détails de commande correspondants
+        // Parcourir les articles du panier et créer une commande détail pour chaque article
         foreach ($cartItems as $item) {
             CommandeDetail::create([
-                'id_num_commande' => $commandeEntete->id,
+                'id_num_commande' => $numCommande, // Utiliser le même numéro de commande généré pour les détails de commande
                 'id_article' => $item['id'],
-                'id_quantite_commande' => $item['quantity'],
+                'id_quantite_commmande' => $item['quantity'],
                 'prix_unitaire_brut' => $item['price'],
-                // Ajoutez d'autres champs si nécessaire
+                // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
             ]);
         }
 
-        // Vider le panier après la commande
-        Session::forget('cart');
-
         // Retourner une réponse JSON indiquant que la commande a été passée avec succès
-        return response()->json([
-            'message' => 'Commande passée avec succès',
-        ]);
+        return response()->json(['message' => 'Commande passée avec succès']);
     }
 }

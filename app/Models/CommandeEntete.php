@@ -11,6 +11,8 @@ class CommandeEntete extends Model
     protected $fillable = [
         'date',
         'id_clients',
+        'id_num_commande',
+
         // Autres colonnes si nécessaire
     ];
 
