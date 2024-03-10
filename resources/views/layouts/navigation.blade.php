@@ -1,21 +1,20 @@
-<nav x-data="{ open: false }" class="navbar navbar-expand-lg navbar-light bg-custom breeze">
+<nav x-data="{ open: false }" class="navbar navbar-expand-lg navbar-light bg-custom">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div>
-                    <a href="{{ route('index') }}">
+                    <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <!-- <x-nav-link :href="route('dashboard')" :active="request()>routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-</x-nav-link> -->
-
+                    </x-nav-link>
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -31,22 +30,15 @@
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
-                    @guest
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
-
-                    @endguest
-
-                    @guest
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-nav-link>
-                    @endguest
-
                     @if(Request::url() == url('/shop'))
-                    <form class="d-flex ms-auto custom-shear rounded" action="{{ route('search') }}" method="GET">
-                        <input class="form-control me-2 custom-shear rounded" type="search" name="query" placeholder="Search" aria-label="Search">
+                    <form class="d-flex ms-auto" action="{{ route('search') }}" method="GET">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-dark" type="submit">Submit</button>
                     </form>
                     @endif
@@ -139,9 +131,9 @@
             @endauth
         </div>
     </div>
+   
+     
+    @vite(['resources/css/nav.css',  'resources/css/app.css' , 'resources/js/app.js'])
 
-
-    @vite(['resources/css/nav.css', 'resources/css/app.css' , 'resources/js/app.js'])
-
-
+         
 </nav>

@@ -43,7 +43,8 @@ Route::post('/vider-article-panier', [BasketController::class, 'viderArticlePani
 Route::post('/update-item-quantity', 'BasketController@changerQuantiter');
 Route::get('/get-total-price', 'BasketController@calculerPrixTotal');
 //Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
-Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
+Route::get('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
+//Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
 Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article');
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

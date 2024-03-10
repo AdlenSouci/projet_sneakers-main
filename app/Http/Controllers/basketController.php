@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Session;
 use App\Models\CommandeEntete;
 use App\Models\CommandeDetail;
 
-
 class BasketController extends Controller
 {
 
@@ -187,16 +186,17 @@ class BasketController extends Controller
         // Récupérer l'utilisateur connecté
         $userId = Auth::id();
 
+
         // Générer un numéro de commande unique
         $numCommande = mt_rand(100000, 999999);
 
         // Créer une nouvelle commande entête avec le numéro de commande généré
         $commandeEntete = new CommandeEntete;
-        $commandeEntete->id_num_commande = $numCommande;
+        //$commandeEntete->id_num_commande = $numCommande;
         $commandeEntete->date = now();
-        $commandeEntete->id_clients = $userId;
+        $commandeEntete->id_user = $userId;
         $commandeEntete->save();
-
+        return response()->json(['message' => 'Commande passée avec succès']);
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
 

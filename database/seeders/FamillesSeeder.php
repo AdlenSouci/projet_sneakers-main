@@ -34,7 +34,5 @@ class FamillesSeeder extends Seeder
             'nom_famille'  => 'basket',
            
         ]);
-       
-    
     }
 }
