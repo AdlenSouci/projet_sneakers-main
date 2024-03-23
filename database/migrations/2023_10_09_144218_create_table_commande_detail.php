@@ -27,7 +27,7 @@ return new class extends Migration
             $table->index('montant_ht');
             $table->index('remise');
             $table->index('quantite');
-            $table->index('prix_ttc');
+            //$table->index('prix_ttc');
           
           
 

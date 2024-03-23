@@ -32,7 +32,7 @@ class BasketController extends Controller
         // Validation des données
         $request->validate([
             'article_id' => 'required|exists:articles,id',
-            'quantity' => 'required|integer|min:0',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         // Récupérer l'article à partir de la base de données
@@ -116,7 +116,7 @@ class BasketController extends Controller
             'name' => $article->modele,
             'image' => asset($article->img),
             'price' => $article->prix_public,
-            'quantity' => 1,
+            'quantity' => 1, 
             'tailles' => $tailles->toArray(),
         ];
 
@@ -203,24 +203,21 @@ class BasketController extends Controller
 
         // Parcourir les articles du panier et créer une commande détail pour chaque article
         foreach ($cartItems as $item) {
-            $commandeDetail = new CommandeDetail;
-            $commandeDetail->id_num_commande = $commandeEntete->id; 
+            $commandeDetail = new CommandeDetail;// Utiliser le même numéro de commande généré pour les détails de commande
             $commandeDetail->id_article = $item['id'];
             $commandeDetail->id_quantite_commmande = $item['quantity'];
             $commandeDetail->prix_unitaire_brut = $item['price'];
-            $commandeDetail->quantite = $item['quantity'];//23/03/2024 1h55 ceci ne recupere pas la valeur de la quantiter changer via le input
-
+            $commandeDetail->quantite = $item['quantity'];
 
             // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
             $commandeDetail->prix_unitaire_net = $item['price'];
             $commandeDetail->montant_ht = 0;
             $commandeDetail->remise = 0;
-            $commandeDetail->prix_ttc = $item['price'] * $item['quantity'];
 
             $commandeDetail->save();
         }
 
         return response()->json(['message' => 'Commande passée avec succès ' . $commandeEntete->id]);
-        // Retourner une réponse JSON indiquant que la commande a été passée avec succès
+        
     }
 }

@@ -15,7 +15,7 @@ class CommandeDetail extends Model
         'id_quantite_commande',
         'prix_unitaire_brut',
         'quantite',
-        'prix_ttc',
+        //'prix_ttc',
         // Autres colonnes si nécessaire
     ];
 

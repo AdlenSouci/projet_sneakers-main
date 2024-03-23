@@ -109,6 +109,9 @@
                                             <form action="" method="post">
                                                 @csrf
 
+                                                <input type="text" class="form-control" name="adresse_livraison" id="adresse_livraison" placeholder="Adresse de livraison" required>
+<br>
+
                                                 <button id="passCommandButton" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
                                             </form>
                                             @else

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_num_bon_livraison')->nullable(false);
             $table->unsignedBigInteger('id_num_ligne_bon_livraison')->nullable(false);
             $table->unsignedBigInteger('id_article')->nullable(false);
+            $table->string('adresse')->nullable(false);
             
             $table->integer('quantite_livraison')->nullable(false);
             $table->decimal('prix_unitaire_brut',9,2)->nullable(false);
