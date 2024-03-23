@@ -61,7 +61,7 @@
                                                     <option value="{{ $taille }}">{{ $taille }}</option>
                                                     @endforeach
                                                 </select>
-                                                <input class="form-control form-control-sm quantity-input  rounded" type="number" min="0" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="changerQuantiter(this)" />
+                                                <input class="form-control form-control-sm quantity-input rounded" type="number" min="1" name="quantity" value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-price="{{ $item['price'] }}" onchange="changerQuantiter(this)" />
 
                                             </div>
 
@@ -109,7 +109,8 @@
                                             <form action="" method="post">
                                                 @csrf
 
-                                                <button id="passCommandButton" class="btn btn-dark btn-block btn-lg">Passer la commande</button>                                            </form>
+                                                <button id="passCommandButton" class="btn btn-dark btn-block btn-lg">Passer la commande</button>
+                                            </form>
                                             @else
                                             <p>Connectez-vous pour passer une commande.</p>
                                             @endif
@@ -197,34 +198,41 @@
 
     <script>
         function changerQuantiter(input) {
-            // Obtenez les valeurs nécessaires
-            var newQuantity = parseInt(input.value);
-            var pricePerItem = parseFloat(input.getAttribute("data-item-price"));
+    // Obtenez les valeurs nécessaires
+    var newQuantity = parseInt(input.value);
+    
+    var pricePerItem = parseFloat(input.getAttribute("data-item-price"));
 
-            // Vérifiez si la nouvelle quantité est un nombre valide
-            if (!isNaN(newQuantity) && newQuantity >= 0) {
-                // Recherchez l'élément avec la classe "item-price" dans le même parent que l'input
-                var itemPriceElement = input.closest('.row').querySelector(".item-price");
+    // Vérifiez si la nouvelle quantité est un nombre valide
+    if (!isNaN(newQuantity) && newQuantity >= 0) {
+        // Recherchez l'élément avec la classe "item-price" dans le même parent que l'input
+        var itemPriceElement = input.closest('.row').querySelector(".item-price");
 
+        if (itemPriceElement) {
+            // Calculez le nouveau total en multipliant la quantité par le prix unitaire
+            var newTotal = newQuantity * pricePerItem;
 
-                if (itemPriceElement) {
-                    // Calculez le nouveau total en multipliant la quantité par le prix unitaire
-                    var newTotal = newQuantity * pricePerItem;
+            // Mettez à jour l'affichage du prix
+            itemPriceElement.textContent = "€ " + newTotal.toFixed(2);
 
-                    // Mettez à jour l'affichage du prix
-                    itemPriceElement.textContent = "€ " + newTotal.toFixed(2);
+            // Mettez à jour l'attribut data-item-price avec le prix unitaire
+            input.setAttribute("data-item-price", pricePerItem.toFixed(2));
 
-                    // Mettez à jour l'attribut data-item-price avec le prix unitaire
-                    input.setAttribute("data-item-price", pricePerItem.toFixed(2));
-
-                    // Mettez à jour le prix total
-                    calculerPrixTotal();
-                }
-            } else {
-                // Remettez la quantité à 0 si la nouvelle quantité n'est pas valide
-                input.value = 0;
-            }
+            // Mettez à jour le prix total
+            calculerPrixTotal();
+            console.log("Nouvelle quantité :", newQuantity);
         }
+
+        
+        input.value = newQuantity; 
+       
+
+    } else {
+        
+        input.value = 0;
+    }
+}
+
 
         function calculerPrixTotal() {
             // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
@@ -281,27 +289,25 @@
         function passerCommande() {
             alert('passerCommande');
             fetch('{{ route("passer-commande") }}', { // Utilisez la fonction route() pour générer l'URL de la route
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
-                console.log(data.message);
-                // Videz le panier si la commande a été passée avec succès
-                if (!data.error) {
-                    //viderPanier();
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors de la passation de la commande :', error);
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
+                    console.log(data.message);
+                    // Videz le panier si la commande a été passée avec succès
+                    if (!data.error) {
+                        //viderPanier();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la passation de la commande :', error);
+                });
         }
-    
-
     </script>
 
 </body>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\CommandeEntete;
 use App\Models\CommandeDetail;
 
+
 class BasketController extends Controller
 {
 
@@ -196,22 +197,25 @@ class BasketController extends Controller
         $commandeEntete->date = now();
         $commandeEntete->id_user = $userId;
         $commandeEntete->save();
-        return response()->json(['message' => 'Commande passée avec succès']);
+
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
 
         // Parcourir les articles du panier et créer une commande détail pour chaque article
         foreach ($cartItems as $item) {
             $commandeDetail = new CommandeDetail;
-            $commandeDetail->id_num_commande = $commandeEntete->id; // Utiliser le même numéro de commande généré pour les détails de commande
+            $commandeDetail->id_num_commande = $commandeEntete->id; 
             $commandeDetail->id_article = $item['id'];
             $commandeDetail->id_quantite_commmande = $item['quantity'];
             $commandeDetail->prix_unitaire_brut = $item['price'];
+            $commandeDetail->quantite = $item['quantity'];//23/03/2024 1h55 ceci ne recupere pas la valeur de la quantiter changer via le input
+
 
             // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
             $commandeDetail->prix_unitaire_net = $item['price'];
             $commandeDetail->montant_ht = 0;
             $commandeDetail->remise = 0;
+            $commandeDetail->prix_ttc = $item['price'] * $item['quantity'];
 
             $commandeDetail->save();
         }

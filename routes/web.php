@@ -38,13 +38,15 @@ Route::get('/carousel', [CarouselController::class, 'index'])->name('carousel');
 Route::get('/search', [ShopController::class, 'search'])->name('search');
 Route::post('/ajouter_au_panier', [BasketController::class, 'ajouter_au_panier'])->name('ajouter_au_panier');
 
+Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');//new 22/03/2024
 Route::post('/vider-panier', [BasketController::class, 'viderPanier'])->name('viderPanier');
 Route::post('/vider-article-panier', [BasketController::class, 'viderArticlePanier'])->name('vider-article-panier');
-Route::post('/update-item-quantity', 'BasketController@changerQuantiter');
+Route::post('/changer-quantite', [BasketController::class, 'changerQuantite'])->name('changer-quantite');
 Route::get('/get-total-price', 'BasketController@calculerPrixTotal');
-//Route::post('/passer-commande', 'OrderController@passerCommande')->name('passer-commande');
-Route::get('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
-//Route::post('/passer-commande', [BasketController::class, 'passerCommande'])->name('passer-commande');
+
+
+
+
 Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article');
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

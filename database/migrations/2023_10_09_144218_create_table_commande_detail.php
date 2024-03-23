@@ -15,15 +15,21 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_num_commande')->nullable(false);
             $table->unsignedBigInteger('id_article')->nullable(false);
-            $table->integer('id_quantite_commmande')->nullable(false);
+            $table->integer('id_quantite_commmande')->nullable(false);  
+            $table->integer('quantite')->nullable(false);
             $table->decimal('prix_unitaire_brut',9,2)->nullable(false);
             $table->decimal('prix_unitaire_net',9,2)->nullable(false);
             $table->decimal('montant_ht',9,2)->nullable(false);
             $table->decimal('remise',9,2)->nullable(false);
+            $table->decimal('prix_ttc',9,2)->nullable(false);
             $table->timestamps();
 
             $table->index('montant_ht');
             $table->index('remise');
+            $table->index('quantite');
+            $table->index('prix_ttc');
+          
+          
 
 
             //$table->foreign('id_clients')->references('id')->on('clients');
