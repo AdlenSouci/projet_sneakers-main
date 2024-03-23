@@ -202,16 +202,21 @@ class BasketController extends Controller
 
         // Parcourir les articles du panier et créer une commande détail pour chaque article
         foreach ($cartItems as $item) {
-            CommandeDetail::create([
-                'id_num_commande' => $numCommande, // Utiliser le même numéro de commande généré pour les détails de commande
-                'id_article' => $item['id'],
-                'id_quantite_commmande' => $item['quantity'],
-                'prix_unitaire_brut' => $item['price'],
-                // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
-            ]);
+            $commandeDetail = new CommandeDetail;
+            $commandeDetail->id_num_commande = $commandeEntete->id; // Utiliser le même numéro de commande généré pour les détails de commande
+            $commandeDetail->id_article = $item['id'];
+            $commandeDetail->id_quantite_commmande = $item['quantity'];
+            $commandeDetail->prix_unitaire_brut = $item['price'];
+
+            // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
+            $commandeDetail->prix_unitaire_net = $item['price'];
+            $commandeDetail->montant_ht = 0;
+            $commandeDetail->remise = 0;
+
+            $commandeDetail->save();
         }
 
+        return response()->json(['message' => 'Commande passée avec succès ' . $commandeEntete->id]);
         // Retourner une réponse JSON indiquant que la commande a été passée avec succès
-        return response()->json(['message' => 'Commande passée avec succès']);
     }
 }
