@@ -197,10 +197,11 @@ class BasketController extends Controller
             $commandeEntete->date = now();
             $commandeEntete->id_user = $userId;
             $commandeEntete->save();
-            //return response()->json(['message' => 'passerCommande ' . $commandeEntete->lazyByIdDesc]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+
+        return response()->json(['message' => 'passerCommande ' . $commandeEntete->id]);
 
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
