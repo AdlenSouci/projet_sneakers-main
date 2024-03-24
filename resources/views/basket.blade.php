@@ -290,28 +290,31 @@
     </script>
     <script>
         function passerCommande() {
-            alert('passerCommande');
-            fetch('{{ route("passer-commande") }}', { // Utilisez la fonction route() pour générer l'URL de la route
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
-                    console.log(data.message);
-                    // Videz le panier si la commande a été passée avec succès
-                    if (!data.error) {
-                        //viderPanier();
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la passation de la commande :', error);
-                });
+            //alert('passerCommande');
+            fetch ('{{ route("passer-commande") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
+                alert(data.message);
+                // Videz le panier si la commande a été passée avec succès
+                if (!data.error) {
+                    alert(data.message);
+                    //viderPanier();
+                    //showOrderConfirmation();
+                }
+                else {
+                    alert('Erreur lors de la commande');
+                }
+            })
         }
-    </script>
+
+</script>
 
 </body>
 

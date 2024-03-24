@@ -116,7 +116,7 @@ class BasketController extends Controller
             'name' => $article->modele,
             'image' => asset($article->img),
             'price' => $article->prix_public,
-            'quantity' => 1, 
+            'quantity' => 1,
             'tailles' => $tailles->toArray(),
         ];
 
@@ -187,16 +187,20 @@ class BasketController extends Controller
         // Récupérer l'utilisateur connecté
         $userId = Auth::id();
 
-
         // Générer un numéro de commande unique
         $numCommande = mt_rand(100000, 999999);
 
-        // Créer une nouvelle commande entête avec le numéro de commande généré
-        $commandeEntete = new CommandeEntete;
-        //$commandeEntete->id_num_commande = $numCommande;
-        $commandeEntete->date = now();
-        $commandeEntete->id_user = $userId;
-        $commandeEntete->save();
+        try {
+            // Créer une nouvelle commande entête avec le numéro de commande généré
+            $commandeEntete = new CommandeEntete;
+            $commandeEntete->id_num_commande = $numCommande;
+            $commandeEntete->date = now();
+            $commandeEntete->id_user = $userId;
+            $commandeEntete->save();
+            //return response()->json(['message' => 'passerCommande ' . $commandeEntete->lazyByIdDesc]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
 
         // Récupérer le panier actuel depuis la session
         $cartItems = Session::get('cart', []);
@@ -218,6 +222,6 @@ class BasketController extends Controller
         }
 
         return response()->json(['message' => 'Commande passée avec succès ' . $commandeEntete->id]);
-        
+
     }
 }
