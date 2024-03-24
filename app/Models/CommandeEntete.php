@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CommandeDetail;
+use App\Models\User;
 
 class CommandeEntete extends Model
 {
@@ -12,14 +14,18 @@ class CommandeEntete extends Model
         'date',
         'id_clients',
         'id_num_commande',
+        'total_ht',
+        'total_ttc',
+        'total_tva',
+        'total_remise'
 
         // Autres colonnes si nécessaire
     ];
 
     // Relation avec la table des détails de commande
-    public function details()
+    public function Details()
     {
-        return $this->hasMany(CommandeDetail::class, 'id_num_commande', 'id');
+        return $this->hasMany(CommandeDetail::class, 'id_commande', 'id');
     }
 
     // Relation avec le modèle User si vous stockez les informations du client

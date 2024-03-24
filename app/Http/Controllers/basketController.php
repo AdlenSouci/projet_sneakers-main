@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
-
-
 use App\Models\CommandeEntete;
 use App\Models\CommandeDetail;
 
@@ -196,30 +193,35 @@ class BasketController extends Controller
             $commandeEntete->id_num_commande = $numCommande;
             $commandeEntete->date = now();
             $commandeEntete->id_user = $userId;
+            $commandeEntete->total_ht = 0;
             $commandeEntete->save();
+
+
+            // Récupérer le panier actuel depuis la session
+            $cartItems = Session::get('cart', []);
+
+            //return response()->json(['message' => $commandeEntete->Details()->count()]);
+
+            // Parcourir les articles du panier et créer une commande détail pour chaque article
+            foreach ($cartItems as $item) {
+                //return response()->json(['message' => $numCommande . " / " . $item['id'] . " / " . $item['quantity'] . " / " . $item['price'] . " / " . $commandeEntete->id]);
+
+                $commandeEntete->Details()->create([
+                    'id_commande' => $commandeEntete->id,
+                    'id_article' => $item['id'],
+                    'quantite' => $item['quantity'],
+                    // La boutique est en ttc
+                    'prix_ttc' => $item['price'],
+                    // On calcule le prix ht
+                    'prix_ht' => $item['price'] * .8,
+                    // On calcule le montant de la tva
+                    'montant_tva' => $item['price'] * .2,
+                    'remise' => 0,
+                ]);
+            }
+
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
-
-        return response()->json(['message' => 'passerCommande ' . $commandeEntete->id]);
-
-        // Récupérer le panier actuel depuis la session
-        $cartItems = Session::get('cart', []);
-
-        // Parcourir les articles du panier et créer une commande détail pour chaque article
-        foreach ($cartItems as $item) {
-            $commandeDetail = new CommandeDetail;// Utiliser le même numéro de commande généré pour les détails de commande
-            $commandeDetail->id_article = $item['id'];
-            $commandeDetail->id_quantite_commmande = $item['quantity'];
-            $commandeDetail->prix_unitaire_brut = $item['price'];
-            $commandeDetail->quantite = $item['quantity'];
-
-            // Vous pouvez calculer les autres champs (prix_unitaire_net, montant_ht, remise) en fonction de vos besoins
-            $commandeDetail->prix_unitaire_net = $item['price'];
-            $commandeDetail->montant_ht = 0;
-            $commandeDetail->remise = 0;
-
-            $commandeDetail->save();
+            return response()->json(['message' => $e->getMessage()]);
         }
 
         return response()->json(['message' => 'Commande passée avec succès ' . $commandeEntete->id]);

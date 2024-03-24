@@ -30,12 +30,15 @@
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                        {{ __('Login') }}
-                    </x-nav-link>
+                    @guest
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                            {{ __('Register') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                            {{ __('Login') }}
+                        </x-nav-link>
+                    @endguest   
+                    
                     @if(Request::url() == url('/shop'))
                     <form class="d-flex ms-auto" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">

@@ -15,6 +15,10 @@ return new class extends Migration {
             $table->dateTime('date')->nullable(false);
             $table->unsignedBigInteger('id_user')->nullable(false);
             $table->unsignedBigInteger('id_num_commande')->nullable(false);
+            $table->decimal('total_ht')->default(0);
+            $table->decimal('total_ttc')->default(0);
+            $table->decimal('total_tva')->default(0);
+            $table->decimal('total_remise')->default(0);
 
             $table->timestamps();
 

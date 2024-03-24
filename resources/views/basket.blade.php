@@ -142,177 +142,154 @@
 
 
 
-    <script>
-        function viderPanier() {
-            fetch('/vider-panier', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-
-                    // Rechargez la page côté client
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la suppression du panier :', error);
-                });
-
-        }
-    </script>
-
-
-    <script>
-        function viderArticlePanier(button) {
-            var articleId = button.getAttribute('data-article-id');
-
-            fetch('{{ route("vider-article-panier") }}', { // Utilisez la fonction route() pour générer l'URL de la route
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        article_id: articleId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-
-                    // Rechargez la page côté client si la suppression a réussi
-                    if (!data.error) {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la suppression de l\'article :', error);
-                });
-        }
-    </script>
-
-
-
-
-
-    <script>
-        function changerQuantiter(input) {
-    // Obtenez les valeurs nécessaires
-    var newQuantity = parseInt(input.value);
-    
-    var pricePerItem = parseFloat(input.getAttribute("data-item-price"));
-
-    // Vérifiez si la nouvelle quantité est un nombre valide
-    if (!isNaN(newQuantity) && newQuantity >= 0) {
-        // Recherchez l'élément avec la classe "item-price" dans le même parent que l'input
-        var itemPriceElement = input.closest('.row').querySelector(".item-price");
-
-        if (itemPriceElement) {
-            // Calculez le nouveau total en multipliant la quantité par le prix unitaire
-            var newTotal = newQuantity * pricePerItem;
-
-            // Mettez à jour l'affichage du prix
-            itemPriceElement.textContent = "€ " + newTotal.toFixed(2);
-
-            // Mettez à jour l'attribut data-item-price avec le prix unitaire
-            input.setAttribute("data-item-price", pricePerItem.toFixed(2));
-
-            // Mettez à jour le prix total
-            calculerPrixTotal();
-            console.log("Nouvelle quantité :", newQuantity);
-        }
-
-        
-        input.value = newQuantity; 
-       
-
-    } else {
-        
-        input.value = 0;
+<script>
+    function viderPanier() {
+        fetch('/vider-panier', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // Rechargez la page côté client
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la suppression du panier :', error);
+        });
     }
-}
 
+    function viderArticlePanier(button) {
+        var articleId = button.getAttribute('data-article-id');
 
-        function calculerPrixTotal() {
-            // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
-            var itemPrices = document.querySelectorAll('.item-price');
-            var totalPrice = 0;
+        fetch('{{ route("vider-article-panier") }}', { // Utilisez la fonction route() pour générer l'URL de la route
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                article_id: articleId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
 
-            itemPrices.forEach(function(itemPrice) {
-                totalPrice += parseFloat(itemPrice.textContent.replace('€ ', ''));
-            });
-
-            // Mettez à jour l'élément affichant le prix total
-            document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
-        }
-    </script>
-
-
-    <script>
-        function checkAuthentication() {
-            // Vérifiez si l'utilisateur est connecté en consultant la barre de navigation
-            var userLoggedIn = document.getElementById('userLoggedIn'); // suppose que vous avez un élément dans votre barre de navigation avec l'ID 'userLoggedIn' qui indique si l'utilisateur est connecté ou non
-
-            if (userLoggedIn) {
-                // Si l'utilisateur est connecté, passez la commande
-                placeOrder();
-            } else {
-                // Si l'utilisateur n'est pas connecté, affichez un message l'invitant à se connecter
-                alert("Veuillez vous connecter pour passer une commande.");
+            // Rechargez la page côté client si la suppression a réussi
+            if (!data.error) {
+                location.reload();
             }
-        }
-    </script>
+        })
+        .catch(error => {
+            console.error('Erreur lors de la suppression de l\'article :', error);
+        });
+    }
 
-    <script>
-        // Fonction pour afficher un message de commande passée
-        function showOrderConfirmation() {
-            // Afficher un message ou un pop-up
-            alert("Commande passée avec succès !");
-        }
+    function changerQuantiter(input) {
 
-        // Ajouter un événement "click" au bouton "Passer la commande"
-        var passCommandButton = document.querySelector("#passCommandButton");
-        if (passCommandButton) {
-            passCommandButton.addEventListener("click", function(event) {
-                // Empêcher le comportement par défaut du formulaire (envoi)
-                event.preventDefault();
-                // Appeler la fonction pour afficher le message de commande passée
-                passerCommande();
-                //showOrderConfirmation();
-                //viderPanier();
+        // Obtenez les valeurs nécessaires
+        var newQuantity = parseInt(input.value);
+        
+        var pricePerItem = parseFloat(input.getAttribute("data-item-price"));
 
-            });
+        // Vérifiez si la nouvelle quantité est un nombre valide
+        if (!isNaN(newQuantity) && newQuantity >= 0) {
+            // Recherchez l'élément avec la classe "item-price" dans le même parent que l'input
+            var itemPriceElement = input.closest('.row').querySelector(".item-price");
+
+            if (itemPriceElement) {
+                // Calculez le nouveau total en multipliant la quantité par le prix unitaire
+                var newTotal = newQuantity * pricePerItem;
+                // Mettez à jour l'affichage du prix
+                itemPriceElement.textContent = "€ " + newTotal.toFixed(2);
+                // Mettez à jour l'attribut data-item-price avec le prix unitaire
+                input.setAttribute("data-item-price", pricePerItem.toFixed(2));
+                // Mettez à jour le prix total
+                calculerPrixTotal();
+                console.log("Nouvelle quantité :", newQuantity);
+            }
+            // Mettez à jour la valeur de l'input
+            //input.value = newQuantity;         
+        } else {
+            // Si la nouvelle quantité n'est pas valide, réinitialisez la valeur de l'input à 0  
+            input.value = 0;
         }
-    </script>
-    <script>
-        function passerCommande() {
-            //alert('passerCommande');
-            fetch ('{{ route("passer-commande") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
+    }   
+
+    function calculerPrixTotal() {
+        // Sélectionnez tous les éléments avec la classe "item-price" et additionnez les montants
+        var itemPrices = document.querySelectorAll('.item-price');
+        var totalPrice = 0;
+
+        itemPrices.forEach(function(itemPrice) {
+            totalPrice += parseFloat(itemPrice.textContent.replace('€ ', ''));
+        });
+
+        // Mettez à jour l'élément affichant le prix total
+        document.querySelector('#totalPrice').textContent = "€ " + totalPrice.toFixed(2);
+    }
+
+    function checkAuthentication() {
+        // Vérifiez si l'utilisateur est connecté en consultant la barre de navigation
+        var userLoggedIn = document.getElementById('userLoggedIn'); // suppose que vous avez un élément dans votre barre de navigation avec l'ID 'userLoggedIn' qui indique si l'utilisateur est connecté ou non
+
+        if (userLoggedIn) {
+            // Si l'utilisateur est connecté, passez la commande
+            placeOrder();
+        } else {
+            // Si l'utilisateur n'est pas connecté, affichez un message l'invitant à se connecter
+            alert("Veuillez vous connecter pour passer une commande.");
+        }
+    }
+
+    // Fonction pour afficher un message de commande passée
+    function showOrderConfirmation() {
+        // Afficher un message ou un pop-up
+        alert("Commande passée avec succès !");
+    }
+
+    // Ajouter un événement "click" au bouton "Passer la commande"
+    var passCommandButton = document.querySelector("#passCommandButton");
+    if (passCommandButton) {
+        passCommandButton.addEventListener("click", function(event) {
+            // Empêcher le comportement par défaut du formulaire (envoi)
+            event.preventDefault();
+            // Appeler la fonction pour afficher le message de commande passée
+            passerCommande();
+            //showOrderConfirmation();
+            //viderPanier();
+
+        });
+    }
+
+    function passerCommande() {
+        //alert('passerCommande');
+        fetch ('{{ route("passer-commande") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez un message de confirmation ou redirigez l'utilisateur vers une autre page si nécessaire
+            alert(data.message);
+            // Videz le panier si la commande a été passée avec succès
+            if (!data.error) {
                 alert(data.message);
-                // Videz le panier si la commande a été passée avec succès
-                if (!data.error) {
-                    alert(data.message);
-                    //viderPanier();
-                    //showOrderConfirmation();
-                }
-                else {
-                    alert('Erreur lors de la commande');
-                }
-            })
-        }
+                //viderPanier();
+                //showOrderConfirmation();
+            }
+            else {
+                alert(error.message);
+            }
+        })
+    }
 
 </script>
 
