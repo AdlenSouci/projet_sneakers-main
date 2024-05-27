@@ -7,6 +7,7 @@
 4. Pages du site
     - Page Shop
     - Page Panier
+    - breeze login et register
 5. Contribution
 6. Licence
 
@@ -34,7 +35,13 @@ Pour utiliser le site, voir le resultat il faut demarer xampp Apache et mysql
 
 ### Page Shop
 
-Ici, vous pouvez décrire ce que les utilisateurs peuvent faire sur la page Shop, quels produits sont disponibles, comment ils peuvent filtrer et trier les produits, etc.
+Ici, vous pouvez décrire ce que les utilisateurs peuvent faire sur la page Shop, quels produits sont disponibles, comment ils peuvent filtrer.
+
+### Page login/register
+
+Connexion deconnexion/creaction du compte suppression du compte 
+- Changement du mot de passe
+
 
 ### Page Panier
 
@@ -45,10 +52,4 @@ doc:
 -https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 -https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
 
-## Contribution
 
-Expliquez comment les autres peuvent contribuer à votre projet.
-
-## Licence
-
-Incluez ici les informations sur la licence de votre projet.
